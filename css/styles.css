@@ -99,3 +99,65 @@ header h1 {
   font-weight: bold;
   margin: 5px 0 0;
 }
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-bar {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .menu {
+    width: 100%;
+    float: none;
+    min-height: auto;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .main {
+    margin-left: 0;
+    padding: 10px;
+  }
+
+  .banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .banner button {
+    margin-top: 10px;
+  }
+
+  .products {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 20px;
+  }
+
+  .product h4 {
+    font-size: 14px;
+  }
+
+  .product p {
+    font-size: 14px;
+  }
+
+  .search-bar input {
+    padding: 6px;
+  }
+
+  .product img {
+    height: 120px;
+  }
+}
+
