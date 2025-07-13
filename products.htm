@@ -1,0 +1,268 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sản phẩm - Đồ Gia Dụng</title>
+  <link rel="stylesheet" href="tailwind.min.css" />
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <div class="max-w-7xl mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-8 text-center">Danh sách sản phẩm</h1>
+    <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+  </div>
+
+  <script>
+    const products = [
+      {
+        name: "Nồi cơm điện Toshiba",
+        image: "https://source.unsplash.com/400x300/?ricecooker",
+        price: "1.200.000₫",
+        description: "Nấu cơm nhanh, giữ ấm lâu, dung tích 1.8L."
+      },
+      {
+        name: "Máy ép chậm Philips",
+        image: "https://source.unsplash.com/400x300/?juicer",
+        price: "2.490.000₫",
+        description: "Ép trái cây giữ nguyên dưỡng chất, dễ vệ sinh."
+      },
+      {
+        name: "Máy xay sinh tố Sunhouse",
+        image: "https://source.unsplash.com/400x300/?blender",
+        price: "650.000₫",
+        description: "Động cơ mạnh, lưỡi dao inox bền bỉ."
+      },
+      {
+        name: "Lò vi sóng Sharp",
+        image: "https://source.unsplash.com/400x300/?microwave",
+        price: "1.950.000₫",
+        description: "Dễ sử dụng, công suất 800W, 23L."
+      },
+      {
+        name: "Ấm siêu tốc Kangaroo",
+        image: "https://source.unsplash.com/400x300/?kettle",
+        price: "350.000₫",
+        description: "Dung tích 1.8L, chất liệu inox chống gỉ."
+      },
+      {
+        name: "Bếp hồng ngoại Elmich",
+        image: "https://source.unsplash.com/400x300/?cooktop",
+        price: "1.190.000₫",
+        description: "Không kén nồi, điều chỉnh nhiệt chính xác."
+      },
+      {
+        name: "Máy hút bụi Electrolux",
+        image: "https://source.unsplash.com/400x300/?vacuum",
+        price: "2.850.000₫",
+        description: "Công suất cao, dễ dàng làm sạch sàn."
+      },
+      {
+        name: "Bàn ủi hơi nước Philips",
+        image: "https://source.unsplash.com/400x300/?iron",
+        price: "690.000₫",
+        description: "Ủi phẳng nhanh, an toàn với vải mỏng."
+      },
+      {
+        name: "Máy lọc không khí Xiaomi",
+        image: "https://source.unsplash.com/400x300/?air-purifier",
+        price: "2.190.000₫",
+        description: "Lọc bụi mịn PM2.5, điều khiển qua app."
+      },
+      {
+        name: "Quạt đứng Panasonic",
+        image: "https://source.unsplash.com/400x300/?fan",
+        price: "980.000₫",
+        description: "3 chế độ gió, tiết kiệm điện năng."
+      },
+      {
+        name: "Máy sấy tóc Philips",
+        image: "https://source.unsplash.com/400x300/?hair-dryer",
+        price: "390.000₫",
+        description: "Nhỏ gọn, có 3 mức nhiệt, dễ mang theo."
+      },
+      {
+        name: "Tủ lạnh mini Aqua",
+        image: "https://source.unsplash.com/400x300/?mini-fridge",
+        price: "3.500.000₫",
+        description: "Dung tích 90L, tiết kiệm không gian."
+      },
+      {
+        name: "Máy pha cà phê Delonghi",
+        image: "https://source.unsplash.com/400x300/?coffee-maker",
+        price: "4.200.000₫",
+        description: "Espresso chuẩn Ý, thiết kế sang trọng."
+      },
+      {
+        name: "Bình giữ nhiệt Lock&Lock",
+        image: "https://source.unsplash.com/400x300/?thermos",
+        price: "280.000₫",
+        description: "Giữ nhiệt lâu, chống rò rỉ tốt."
+      },
+      {
+        name: "Máy làm bánh mì",
+        image: "https://source.unsplash.com/400x300/?bread-maker",
+        price: "1.750.000₫",
+        description: "Tự động từ trộn, ủ đến nướng bánh."
+      },
+      {
+        name: "Đèn bàn LED chống cận",
+        image: "https://source.unsplash.com/400x300/?led-desk-lamp",
+        price: "320.000₫",
+        description: "Ánh sáng dịu, bảo vệ mắt học sinh."
+      },
+      {
+        name: "Cây nước nóng lạnh",
+        image: "https://source.unsplash.com/400x300/?water-dispenser",
+        price: "2.400.000₫",
+        description: "Làm lạnh nhanh, có khóa an toàn trẻ em."
+      },
+      {
+        name: "Hộp cơm hâm nóng",
+        image: "https://source.unsplash.com/400x300/?lunchbox",
+        price: "420.000₫",
+        description: "Giữ ấm đồ ăn, tiện lợi văn phòng."
+      },
+      {
+        name: "Máy làm sữa hạt",
+        image: "https://source.unsplash.com/400x300/?soy-milk-maker",
+        price: "1.990.000₫",
+        description: "Làm sữa đậu nành, hạt óc chó dễ dàng."
+      },
+      {
+        name: "Máy rửa chén mini",
+        image: "https://source.unsplash.com/400x300/?dishwasher",
+        price: "5.800.000₫",
+        description: "Cho gia đình nhỏ, tiết kiệm nước."
+      },
+      {
+        name: "Kệ bếp đa năng",
+        image: "https://source.unsplash.com/400x300/?kitchen-shelf",
+        price: "560.000₫",
+        description: "Tăng không gian lưu trữ, dễ lắp đặt."
+      },
+      {
+        name: "Ghế gấp gọn đa năng",
+        image: "https://source.unsplash.com/400x300/?folding-chair",
+        price: "450.000₫",
+        description: "Dễ gấp, dùng trong nhà và ngoài trời."
+      },
+      {
+        name: "Chảo chống dính Sunhouse",
+        image: "https://source.unsplash.com/400x300/?frying-pan",
+        price: "310.000₫",
+        description: "Lớp phủ bền, tay cầm cách nhiệt."
+      },
+      {
+        name: "Bộ nồi inox 3 cái",
+        image: "https://source.unsplash.com/400x300/?pots",
+        price: "890.000₫",
+        description: "Dùng cho bếp từ, chống gỉ tốt."
+      },
+      {
+        name: "Máy vắt cam Lock&Lock",
+        image: "https://source.unsplash.com/400x300/?orange-juicer",
+        price: "290.000₫",
+        description: "Vắt kiệt, dễ rửa sạch."
+      },
+      {
+        name: "Tủ giày thông minh",
+        image: "https://source.unsplash.com/400x300/?shoe-rack",
+        price: "760.000₫",
+        description: "Thiết kế tiết kiệm không gian, sạch đẹp."
+      },
+      {
+        name: "Chổi lau nhà tự vắt",
+        image: "https://source.unsplash.com/400x300/?mop",
+        price: "340.000₫",
+        description: "Tiết kiệm nước, tiện lợi lau sàn."
+      },
+      {
+        name: "Kệ nhà tắm chống gỉ",
+        image: "https://source.unsplash.com/400x300/?bathroom-shelf",
+        price: "470.000₫",
+        description: "Chất liệu thép sơn tĩnh điện bền đẹp."
+      },
+      {
+        name: "Máy xông tinh dầu",
+        image: "https://source.unsplash.com/400x300/?diffuser",
+        price: "390.000₫",
+        description: "Tạo hương thư giãn, dễ ngủ hơn."
+      },
+      {
+        name: "Máy làm tỏi đen",
+        image: "https://source.unsplash.com/400x300/?garlic",
+        price: "1.250.000₫",
+        description: "Lên men tỏi tại nhà trong 12 ngày."
+      },
+      {
+        name: "Máy đánh trứng mini",
+        image: "https://source.unsplash.com/400x300/?hand-mixer",
+        price: "270.000₫",
+        description: "Nhẹ, dễ sử dụng, tốc độ cao."
+      },
+      {
+        name: "Khăn lau nhà siêu thấm",
+        image: "https://source.unsplash.com/400x300/?cleaning-cloth",
+        price: "90.000₫",
+        description: "Thấm hút nhanh, dễ giặt sạch."
+      },
+      {
+        name: "Đồng hồ treo tường",
+        image: "https://source.unsplash.com/400x300/?wall-clock",
+        price: "220.000₫",
+        description: "Thiết kế cổ điển, kim trôi yên tĩnh."
+      },
+      {
+        name: "Thùng rác thông minh",
+        image: "https://source.unsplash.com/400x300/?trash-can",
+        price: "670.000₫",
+        description: "Cảm biến tự động mở nắp."
+      },
+      {
+        name: "Máy sưởi mini để bàn",
+        image: "https://source.unsplash.com/400x300/?heater",
+        price: "540.000₫",
+        description: "Giữ ấm mùa lạnh, an toàn cao."
+      },
+      {
+        name: "Máy làm kem mini",
+        image: "https://source.unsplash.com/400x300/?ice-cream-maker",
+        price: "2.150.000₫",
+        description: "Tự làm kem tươi tại nhà nhanh chóng."
+      },
+      {
+        name: "Bộ dao nhà bếp cao cấp",
+        image: "https://source.unsplash.com/400x300/?kitchen-knife",
+        price: "980.000₫",
+        description: "Thép không gỉ, cắt gọt dễ dàng."
+      },
+      {
+        name: "Máy hút ẩm mini",
+        image: "https://source.unsplash.com/400x300/?dehumidifier",
+        price: "1.650.000₫",
+        description: "Giảm ẩm, bảo vệ đồ nội thất."
+      },
+      {
+        name: "Máy hâm sữa",
+        image: "https://source.unsplash.com/400x300/?bottle-warmer",
+        price: "390.000₫",
+        description: "Hâm sữa đều, không làm mất dưỡng chất."
+      },
+    ];
+
+    const container = document.getElementById('product-list');
+
+    products.forEach(p => {
+      const card = document.createElement('div');
+      card.className = "bg-white rounded shadow p-4";
+      card.innerHTML = `
+        <img src="${p.image}" alt="${p.name}" class="w-full h-48 object-cover mb-3 rounded">
+        <h2 class="text-lg font-semibold">${p.name}</h2>
+        <p class="text-red-500 font-bold mb-1">${p.price}</p>
+        <p class="text-sm text-gray-600">${p.description}</p>
+      `;
+      container.appendChild(card);
+    });
+  </script>
+</body>
+</html>
