@@ -3,253 +3,138 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cửa Hàng Đồ Gia Dụng</title>
-  <link rel="icon" type="image/png" href="favicon.png">
+  <title>Giỏ Hàng - META GIA DỤNG</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
       background-color: #f8f8f8;
-    }
-    header {
-      background-color: #d62828;
-      color: white;
-      padding: 10px 20px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-    }
-    header h1 {
       margin: 0;
-      font-size: 24px;
-    }
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .search-bar {
-      flex: 1;
-      margin-left: 20px;
-      min-width: 200px;
-    }
-    .search-bar input {
-      width: 100%;
-      padding: 8px;
-      border-radius: 4px;
-      border: none;
-    }
-    .header-buttons button {
-      padding: 6px 12px;
-      background-color: white;
-      color: #d62828;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .menu {
-      background-color: #ffffff;
-      width: 220px;
-      float: left;
-      padding: 10px;
-      min-height: 100vh;
-      border-right: 1px solid #ddd;
-    }
-    .menu h3 {
-      margin-top: 0;
-    }
-    .menu ul {
-      list-style: none;
-      padding: 0;
-    }
-    .menu li {
-      padding: 8px;
-      border-bottom: 1px solid #eee;
-      cursor: pointer;
-    }
-    .menu li:hover {
-      background-color: #f0f0f0;
-    }
-    .menu li a {
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-    .main {
-      margin-left: 240px;
       padding: 20px;
     }
-    .banner {
+    h1 {
+      text-align: center;
+      color: #d62828;
+    }
+    table {
       width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: #fff;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+    th {
+      background-color: #eee;
+    }
+    img {
+      width: 60px;
+      height: auto;
+    }
+    .actions button {
+      padding: 6px 10px;
+      border: none;
+      background-color: #d62828;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .total {
+      text-align: right;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    .checkout {
+      text-align: center;
+      margin-top: 30px;
+    }
+    .checkout button {
+      padding: 10px 20px;
       background-color: #00b4d8;
       color: white;
-      padding: 30px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 20px;
-    }
-    .product {
-      background-color: white;
-      border-radius: 8px;
-      padding: 10px;
-      text-align: center;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
-    }
-    .product img {
-      width: 100%;
-      height: 150px;
-      object-fit: contain;
-      margin-bottom: 10px;
-    }
-    .product h4 {
-      margin: 0;
-      font-size: 16px;
-    }
-    .product p {
-      color: #d62828;
-      font-weight: bold;
-      margin: 5px 0 0;
-    }
-    .cart {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: white;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      padding: 15px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-      max-width: 300px;
-      display: none;
-      z-index: 9999;
-    }
-    .cart h3 {
-      margin-top: 0;
-    }
-    .cart-close {
-      position: absolute;
-      top: 5px;
-      right: 10px;
+      border: none;
+      border-radius: 4px;
       cursor: pointer;
       font-size: 16px;
-    }
-    @media (max-width: 768px) {
-      .menu {
-        display: none;
-      }
-      .main {
-        margin-left: 0;
-      }
-      .banner {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .header-right {
-        flex-direction: column;
-        align-items: flex-start;
-      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>META GIA DỤNG</h1>
-    <div class="header-right">
-      <div class="search-bar">
-        <input type="text" placeholder="Tìm kiếm sản phẩm...">
-      </div>
-      <div class="header-buttons">
-        <button onclick="toggleLogin()">Đăng nhập</button>
-        <button onclick="toggleRegister()">Đăng ký</button>
-        <button onclick="toggleCart()">🛒 Giỏ hàng</button>
-      </div>
-    </div>
-  </header>
-
-  <div class="menu">
-    <h3>Danh mục</h3>
-    <ul>
-      <li><a href="products.html">Tất cả sản phẩm</a></li>
-      <li>Quạt, Máy làm mát</li>
-      <li>Máy xay đa năng</li>
-      <li>Cây nước nóng lạnh</li>
-      <li>Máy hút bụi</li>
-      <li>Nồi cơm điện</li>
-      <li>Máy lọc nước</li>
-      <li>Máy pha cà phê</li>
-      <li>Lò vi sóng</li>
-      <li>Bếp các loại</li>
-    </ul>
-  </div>
-
-  <div class="main">
-    <div class="banner">
-      <div>
-        <h2>SIÊU SALE HÈ 🔥</h2>
-        <p>Ưu đãi lên đến 50% cho hàng ngàn sản phẩm gia dụng!</p>
-      </div>
-      <a href="products.html">
-        <button style="padding: 10px 20px; background-color: white; color: #d62828; border: none; border-radius: 4px; cursor: pointer;">Mua ngay</button>
-      </a>
-    </div>
-
-    <div class="products">
-      <div class="product">
-        <img src="https://github.com/Danielvu99/dogiadungtot/blob/f3efe092b5f15b5435ee4ebd32357e0ddd6178c8/images/quat1.jpg?raw=true" alt="Quạt">
-        <h4>Quạt làm mát</h4>
-        <p>499.000₫</p>
-      </div>
-      <div class="product">
-        <img src="https://github.com/Danielvu99/dogiadungtot/blob/f3efe092b5f15b5435ee4ebd32357e0ddd6178c8/images/mayxay1.jpg?raw=true" alt="Máy xay">
-        <h4>Máy xay sinh tố</h4>
-        <p>599.000₫</p>
-      </div>
-      <div class="product">
-        <img src="https://github.com/Danielvu99/dogiadungtot/blob/f3efe092b5f15b5435ee4ebd32357e0ddd6178c8/images/noicom1.jpg?raw=true" alt="Nồi cơm">
-        <h4>Nồi cơm điện</h4>
-        <p>899.000₫</p>
-      </div>
-      <div class="product">
-        <img src="https://github.com/Danielvu99/dogiadungtot/blob/f3efe092b5f15b5435ee4ebd32357e0ddd6178c8/images/locnuoc1.jpg?raw=true" alt="Lọc nước">
-        <h4>Máy lọc nước</h4>
-        <p>1.299.000₫</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="cart" id="cart">
-    <span class="cart-close" onclick="toggleCart()">✖</span>
-    <h3>Giỏ hàng</h3>
-    <p>Chưa có sản phẩm nào.</p>
+  <h1>Giỏ Hàng Của Bạn</h1>
+  <table id="cart-table">
+    <thead>
+      <tr>
+        <th>Hình ảnh</th>
+        <th>Tên sản phẩm</th>
+        <th>Giá</th>
+        <th>Số lượng</th>
+        <th>Thành tiền</th>
+        <th>Thao tác</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <div class="total" id="total-price">Tổng cộng: 0₫</div>
+  <div class="checkout">
+    <button onclick="checkout()">Thanh toán</button>
   </div>
 
   <script>
-    function toggleCart() {
-      const cart = document.getElementById("cart");
-      cart.style.display = cart.style.display === "block" ? "none" : "block";
+    function formatCurrency(amount) {
+      return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
     }
-    function toggleLogin() {
-      alert("Chức năng đăng nhập đang được phát triển");
+
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const tbody = document.querySelector("#cart-table tbody");
+      tbody.innerHTML = "";
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        const subtotal = item.price * item.quantity;
+        total += subtotal;
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td><img src="${item.image}" alt="${item.name}"></td>
+          <td>${item.name}</td>
+          <td>${formatCurrency(item.price)}</td>
+          <td><input type="number" min="1" value="${item.quantity}" onchange="updateQuantity(${index}, this.value)"></td>
+          <td>${formatCurrency(subtotal)}</td>
+          <td class="actions"><button onclick="removeItem(${index})">Xóa</button></td>
+        `;
+        tbody.appendChild(row);
+      });
+
+      document.getElementById("total-price").textContent = "Tổng cộng: " + formatCurrency(total);
     }
-    function toggleRegister() {
-      alert("Chức năng đăng ký đang được phát triển");
+
+    function updateQuantity(index, quantity) {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart[index].quantity = parseInt(quantity);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCart();
     }
+
+    function removeItem(index) {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCart();
+    }
+
+    function checkout() {
+      alert("Cảm ơn bạn đã đặt hàng!");
+      localStorage.removeItem("cart");
+      loadCart();
+    }
+
+    loadCart();
   </script>
+
+  <div style="text-align:center; margin-top:30px">
+    <a href="products.html" style="color:#00b4d8; text-decoration:underline">← Tiếp tục mua hàng</a>
+  </div>
 </body>
 </html>
