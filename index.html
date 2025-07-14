@@ -122,6 +122,29 @@
       font-weight: bold;
       margin: 5px 0 0;
     }
+    .cart {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      max-width: 300px;
+      display: none;
+      z-index: 9999;
+    }
+    .cart h3 {
+      margin-top: 0;
+    }
+    .cart-close {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 16px;
+    }
     @media (max-width: 768px) {
       .menu {
         display: none;
@@ -152,9 +175,9 @@
         <input type="text" placeholder="Tìm kiếm sản phẩm...">
       </div>
       <div class="header-buttons">
-        <button onclick="alert('Chức năng đăng nhập đang được phát triển')">Đăng nhập</button>
-        <button onclick="alert('Chức năng đăng ký đang được phát triển')">Đăng ký</button>
-        <button onclick="alert('Chức năng giỏ hàng đang được phát triển')">🛒 Giỏ hàng</button>
+        <button onclick="toggleLogin()">Đăng nhập</button>
+        <button onclick="toggleRegister()">Đăng ký</button>
+        <button onclick="toggleCart()">🛒 Giỏ hàng</button>
       </div>
     </div>
   </header>
@@ -209,5 +232,24 @@
       </div>
     </div>
   </div>
+
+  <div class="cart" id="cart">
+    <span class="cart-close" onclick="toggleCart()">✖</span>
+    <h3>Giỏ hàng</h3>
+    <p>Chưa có sản phẩm nào.</p>
+  </div>
+
+  <script>
+    function toggleCart() {
+      const cart = document.getElementById("cart");
+      cart.style.display = cart.style.display === "block" ? "none" : "block";
+    }
+    function toggleLogin() {
+      alert("Chức năng đăng nhập đang được phát triển");
+    }
+    function toggleRegister() {
+      alert("Chức năng đăng ký đang được phát triển");
+    }
+  </script>
 </body>
 </html>
