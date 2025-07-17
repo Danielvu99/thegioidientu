@@ -145,6 +145,34 @@
       cursor: pointer;
       font-size: 16px;
     }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.4);
+    }
+    .modal-content {
+      background-color: white;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 400px;
+      position: relative;
+    }
+    .modal-content h2 {
+      margin-top: 0;
+    }
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      cursor: pointer;
+      font-size: 18px;
+    }
     @media (max-width: 768px) {
       .menu {
         display: none;
@@ -175,12 +203,35 @@
         <input type="text" placeholder="Tìm kiếm sản phẩm...">
       </div>
       <div class="header-buttons">
-        <button onclick="toggleLogin()">Đăng nhập</button>
-        <button onclick="toggleRegister()">Đăng ký</button>
+        <button onclick="document.getElementById('loginModal').style.display='block'">Đăng nhập</button>
+        <button onclick="document.getElementById('registerModal').style.display='block'">Đăng ký</button>
         <button onclick="toggleCart()">🛒 Giỏ hàng</button>
       </div>
     </div>
   </header>
+
+  <!-- Modal đăng nhập -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="document.getElementById('loginModal').style.display='none'">✖</span>
+      <h2>Đăng nhập</h2>
+      <input type="text" placeholder="Tên đăng nhập" style="width:100%; padding:8px; margin-bottom:10px">
+      <input type="password" placeholder="Mật khẩu" style="width:100%; padding:8px; margin-bottom:10px">
+      <button style="width:100%; padding:10px; background-color:#d62828; color:white; border:none; border-radius:4px">Đăng nhập</button>
+    </div>
+  </div>
+
+  <!-- Modal đăng ký -->
+  <div id="registerModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="document.getElementById('registerModal').style.display='none'">✖</span>
+      <h2>Đăng ký</h2>
+      <input type="text" placeholder="Họ tên" style="width:100%; padding:8px; margin-bottom:10px">
+      <input type="email" placeholder="Email" style="width:100%; padding:8px; margin-bottom:10px">
+      <input type="password" placeholder="Mật khẩu" style="width:100%; padding:8px; margin-bottom:10px">
+      <button style="width:100%; padding:10px; background-color:#00b4d8; color:white; border:none; border-radius:4px">Đăng ký</button>
+    </div>
+  </div>
 
   <div class="menu">
     <h3>Danh mục</h3>
@@ -244,11 +295,11 @@
       const cart = document.getElementById("cart");
       cart.style.display = cart.style.display === "block" ? "none" : "block";
     }
-    function toggleLogin() {
-      alert("Chức năng đăng nhập đang được phát triển");
-    }
-    function toggleRegister() {
-      alert("Chức năng đăng ký đang được phát triển");
+    window.onclick = function(event) {
+      const login = document.getElementById('loginModal');
+      const register = document.getElementById('registerModal');
+      if (event.target === login) login.style.display = "none";
+      if (event.target === register) register.style.display = "none";
     }
   </script>
 </body>
