@@ -1,104 +1,107 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chi tiết sản phẩm</title>
-  <link rel="stylesheet" href="style.css">
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background: #f4f4f4;
+      background-color: #f8f8f8;
+    }
+    header {
+      background-color: #d62828;
+      color: white;
+      padding: 15px 20px;
+      text-align: center;
     }
     .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 20px;
+      max-width: 960px;
+      margin: 30px auto;
       background: white;
-      margin-top: 30px;
       border-radius: 8px;
+      padding: 20px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
       display: flex;
       flex-wrap: wrap;
+      gap: 20px;
     }
-    .image-section {
-      flex: 1;
-      min-width: 300px;
-      padding: 20px;
+    .product-img {
+      flex: 1 1 300px;
     }
-    .image-section img {
+    .product-img img {
       width: 100%;
-      max-height: 300px;
-      object-fit: contain;
+      border-radius: 8px;
     }
-    .details-section {
-      flex: 2;
-      padding: 20px;
+    .product-info {
+      flex: 1 1 300px;
     }
-    h2 {
+    .product-info h2 {
       margin-top: 0;
     }
     .price {
-      color: #d62828;
       font-size: 24px;
+      color: #d62828;
       margin: 10px 0;
     }
-    .description {
-      margin-top: 10px;
-      line-height: 1.6;
-    }
-    button {
-      background: #d62828;
-      color: white;
+    .btn {
       padding: 10px 20px;
+      margin: 10px 5px 0 0;
       border: none;
       border-radius: 4px;
       cursor: pointer;
-      margin-top: 20px;
     }
-    button:hover {
-      background: #b71c1c;
+    .buy-btn {
+      background-color: #00b4d8;
+      color: white;
+    }
+    .cart-btn {
+      background-color: #f77f00;
+      color: white;
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>Chi tiết sản phẩm</h1>
+  </header>
   <div class="container">
-    <div class="image-section">
-      <img src="https://github.com/Danielvu99/dogiadungtot/blob/f3efe092b5f15b5435ee4ebd32357e0ddd6178c8/images/noicom1.jpg?raw=true" alt="Sản phẩm">
+    <div class="product-img">
+      <img id="productImage" src="" alt="Sản phẩm" />
     </div>
-    <div class="details-section">
-      <h2>Nồi cơm điện cao cấp</h2>
-      <div class="price">899.000₫</div>
-      <div class="description">
-        Nồi cơm điện dung tích 1.8L, chống dính, thiết kế hiện đại, dễ sử dụng. Bảo hành chính hãng 12 tháng.
-      </div>
-      <button onclick="addToCart()">Thêm vào giỏ hàng</button>
+    <div class="product-info">
+      <h2 id="productName">Tên sản phẩm</h2>
+      <p id="productPrice" class="price">0₫</p>
+      <p id="productDesc">Mô tả sản phẩm sẽ hiển thị ở đây.</p>
+      <button class="btn buy-btn" onclick="buyNow()">Mua ngay</button>
+      <button class="btn cart-btn" onclick="addToCart()">Thêm vào giỏ hàng</button>
     </div>
   </div>
 
   <script>
+    // Lấy dữ liệu từ URL
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("name");
+    const price = params.get("price");
+    const image = params.get("image");
+    const desc = params.get("desc") || "Sản phẩm chất lượng, bảo hành 12 tháng.";
+
+    document.getElementById("productName").innerText = name;
+    document.getElementById("productPrice").innerText = price;
+    document.getElementById("productImage").src = image;
+    document.getElementById("productDesc").innerText = desc;
+
     function addToCart() {
-      const product = {
-        id: "noicom1",
-        name: "Nồi cơm điện cao cấp",
-        price: 899000,
-        image: "https://github.com/Danielvu99/dogiadungtot/blob/f3efe092b5f15b5435ee4ebd32357e0ddd6178c8/images/noicom1.jpg?raw=true",
-        quantity: 1
-      };
-
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const existing = cart.find(p => p.id === product.id);
-
-      if (existing) {
-        existing.quantity += 1;
-      } else {
-        cart.push(product);
-      }
-
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push({ name, price, image });
       localStorage.setItem("cart", JSON.stringify(cart));
       alert("Đã thêm vào giỏ hàng!");
+    }
+
+    function buyNow() {
+      window.location.href = "checkout.html?name=" + encodeURIComponent(name);
     }
   </script>
 </body>
