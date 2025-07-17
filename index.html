@@ -208,6 +208,30 @@
         align-items: flex-start;
       }
     }
+  .menu-toggle {
+    display: none;
+    background-color: #d62828;
+    color: white;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 10px;
+  }
+  @media (max-width: 768px) {
+    .menu {
+      display: none;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      background-color: white;
+      width: 100%;
+      border-top: 1px solid #ddd;
+      z-index: 1000;
+    }
+    .menu-toggle {
+      display: block;
+    }
+  }
   </style>
 </head>
 <body>
@@ -248,21 +272,22 @@
     </div>
   </div>
 
-  <div class="menu">
-    <h3>Danh mục</h3>
-    <ul>
-      <li><a href="products.html">Tất cả sản phẩm</a></li>
-      <li><a href="products.html?category=quat">Quạt, Máy làm mát</a></li>
-      <li><a href="products.html?category=mayxay">Máy xay đa năng</a></li>
-      <li><a href="products.html?category=caynuoc">Cây nước nóng lạnh</a></li>
-      <li><a href="products.html?category=hutbui">Máy hút bụi</a></li>
-      <li><a href="products.html?category=noicom">Nồi cơm điện</a></li>
-      <li><a href="products.html?category=locnuoc">Máy lọc nước</a></li>
-      <li><a href="products.html?category=caphe">Máy pha cà phê</a></li>
-      <li><a href="products.html?category=lovi">Lò vi sóng</a></li>
-      <li><a href="products.html?category=bep">Bếp các loại</a></li>
-    </ul>
-  </div>
+  <div class="menu-toggle" onclick="toggleMenu()">☰ Danh mục</div>
+<div class="menu" id="sideMenu">
+  <h3>Danh mục</h3>
+  <ul>
+    <li><a href="products.html">Tất cả sản phẩm</a></li>
+    <li><a href="products.html?category=quat">Quạt, Máy làm mát</a></li>
+    <li><a href="products.html?category=mayxay">Máy xay đa năng</a></li>
+    <li><a href="products.html?category=caynuoc">Cây nước nóng lạnh</a></li>
+    <li><a href="products.html?category=hutbui">Máy hút bụi</a></li>
+    <li><a href="products.html?category=noicom">Nồi cơm điện</a></li>
+    <li><a href="products.html?category=locnuoc">Máy lọc nước</a></li>
+    <li><a href="products.html?category=caphe">Máy pha cà phê</a></li>
+    <li><a href="products.html?category=lovi">Lò vi sóng</a></li>
+    <li><a href="products.html?category=bep">Bếp các loại</a></li>
+  </ul>
+</div>
 
   <div class="main">
     <div class="banner">
@@ -323,6 +348,15 @@
       if (event.target === login) login.style.display = "none";
       if (event.target === register) register.style.display = "none";
     }
+
+    function toggleMenu() {
+    const menu = document.getElementById("sideMenu");
+    if (menu.style.display === "block") {
+      menu.style.display = "none";
+    } else {
+      menu.style.display = "block";
+    }
+  }
   </script>
 </body>
 </html>
