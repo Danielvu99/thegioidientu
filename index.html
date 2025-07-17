@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cửa Hàng Đồ Gia Dụng</title>
   <link rel="icon" type="image/png" href="favicon.png">
-<style>
+  <style>
     * {
       box-sizing: border-box;
     }
@@ -50,6 +50,17 @@
       border: none;
       border-radius: 4px;
       cursor: pointer;
+    }
+    .menu-toggle {
+      display: none;
+      background-color: #d62828;
+      color: white;
+      border: none;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
     }
     .menu {
       background-color: #ffffff;
@@ -123,18 +134,18 @@
       margin: 5px 0;
     }
     .product button {
-      margin: 5px 4px;
+      margin: 5px 3px;
       padding: 6px 10px;
       border: none;
       border-radius: 4px;
       cursor: pointer;
     }
-    .product .buy-now {
-      background-color: #d62828;
+    .buy-btn {
+      background-color: #00b4d8;
       color: white;
     }
-    .product .add-cart {
-      background-color: #00b4d8;
+    .add-cart-btn {
+      background-color: #f77f00;
       color: white;
     }
     .cart {
@@ -191,6 +202,10 @@
     @media (max-width: 768px) {
       .menu {
         display: none;
+        width: 100%;
+      }
+      .menu-toggle {
+        display: block;
       }
       .main {
         margin-left: 0;
@@ -208,30 +223,6 @@
         align-items: flex-start;
       }
     }
-  .menu-toggle {
-    display: none;
-    background-color: #d62828;
-    color: white;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 4px;
-    margin: 10px;
-  }
-  @media (max-width: 768px) {
-    .menu {
-      display: none;
-      position: absolute;
-      top: 60px;
-      left: 0;
-      background-color: white;
-      width: 100%;
-      border-top: 1px solid #ddd;
-      z-index: 1000;
-    }
-    .menu-toggle {
-      display: block;
-    }
-  }
   </style>
 </head>
 <body>
@@ -272,22 +263,22 @@
     </div>
   </div>
 
-  <div class="menu-toggle" onclick="toggleMenu()">☰ Danh mục</div>
-<div class="menu" id="sideMenu">
-  <h3>Danh mục</h3>
-  <ul>
-    <li><a href="products.html">Tất cả sản phẩm</a></li>
-    <li><a href="products.html?category=quat">Quạt, Máy làm mát</a></li>
-    <li><a href="products.html?category=mayxay">Máy xay đa năng</a></li>
-    <li><a href="products.html?category=caynuoc">Cây nước nóng lạnh</a></li>
-    <li><a href="products.html?category=hutbui">Máy hút bụi</a></li>
-    <li><a href="products.html?category=noicom">Nồi cơm điện</a></li>
-    <li><a href="products.html?category=locnuoc">Máy lọc nước</a></li>
-    <li><a href="products.html?category=caphe">Máy pha cà phê</a></li>
-    <li><a href="products.html?category=lovi">Lò vi sóng</a></li>
-    <li><a href="products.html?category=bep">Bếp các loại</a></li>
-  </ul>
-</div>
+  <button class="menu-toggle" onclick="toggleMenu()">☰ Danh mục</button>
+  <div class="menu" id="menuPanel">
+    <h3>Danh mục</h3>
+    <ul>
+      <li><a href="products.html">Tất cả sản phẩm</a></li>
+      <li><a href="products.html?category=quat">Quạt, Máy làm mát</a></li>
+      <li><a href="products.html?category=mayxay">Máy xay đa năng</a></li>
+      <li><a href="products.html?category=caynuoc">Cây nước nóng lạnh</a></li>
+      <li><a href="products.html?category=hutbui">Máy hút bụi</a></li>
+      <li><a href="products.html?category=noicom">Nồi cơm điện</a></li>
+      <li><a href="products.html?category=locnuoc">Máy lọc nước</a></li>
+      <li><a href="products.html?category=caphe">Máy pha cà phê</a></li>
+      <li><a href="products.html?category=lovi">Lò vi sóng</a></li>
+      <li><a href="products.html?category=bep">Bếp các loại</a></li>
+    </ul>
+  </div>
 
   <div class="main">
     <div class="banner">
@@ -357,6 +348,22 @@
       menu.style.display = "block";
     }
   }
+    function toggleCart() {
+      const cart = document.getElementById("cart");
+      cart.style.display = cart.style.display === "block" ? "none" : "block";
+    }
+
+    function toggleMenu() {
+      const menu = document.getElementById("menuPanel");
+      menu.style.display = (menu.style.display === "block" || menu.style.display === "") ? "none" : "block";
+    }
+
+    window.onclick = function(event) {
+      const login = document.getElementById('loginModal');
+      const register = document.getElementById('registerModal');
+      if (event.target === login) login.style.display = "none";
+      if (event.target === register) register.style.display = "none";
+    }
   </script>
 </body>
 </html>
