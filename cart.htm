@@ -77,9 +77,54 @@
     <tbody></tbody>
   </table>
   <div class="total" id="total-price">Tổng cộng: 0₫</div>
-  <div class="checkout">
-    <button onclick="checkout()">Thanh toán</button>
+ <!-- Nút Thanh Toán -->
+<button id="checkoutBtn" class="checkout-btn">Thanh Toán</button>
+
+<!-- Popup -->
+<div id="checkoutPopup" class="popup">
+  <div class="popup-content">
+    <span class="close">&times;</span>
+    <h2>Thông tin thanh toán</h2>
+    <form id="checkoutForm">
+      <label>Họ tên:</label>
+      <input type="text" name="name" required><br>
+      <label>Số điện thoại:</label>
+      <input type="text" name="phone" required><br>
+      <label>Địa chỉ nhận hàng:</label>
+      <textarea name="address" required></textarea><br>
+      <label>Phương thức thanh toán:</label>
+      <select name="payment" required>
+        <option value="cod">Tiền mặt khi nhận hàng</option>
+        <option value="online">Thanh toán online</option>
+      </select><br><br>
+      <button type="submit">Xác nhận thanh toán</button>
+    </form>
   </div>
+</div>
+
+<style>
+.popup {
+  display: none; 
+  position: fixed; 
+  z-index: 1000; 
+  left: 0; top: 0; 
+  width: 100%; height: 100%; 
+  background-color: rgba(0,0,0,0.5);
+}
+.popup-content {
+  background: #fff;
+  margin: 10% auto; 
+  padding: 20px;
+  border-radius: 12px;
+  width: 400px;
+}
+.close {
+  float: right;
+  font-size: 20px;
+  cursor: pointer;
+}
+</style>
+
 
   <script>
     function formatCurrency(amount) {
@@ -132,9 +177,58 @@
 
     loadCart();
   </script>
+  <script>
+  const popup = document.getElementById("checkoutPopup");
+  const btn = document.getElementById("checkoutBtn");
+  const span = document.querySelector(".close");
+
+  btn.onclick = () => popup.style.display = "block";
+  span.onclick = () => popup.style.display = "none";
+  window.onclick = (event) => {
+    if (event.target == popup) popup.style.display = "none";
+  }
+
+  // Gửi về Telegram
+  document.getElementById("checkoutForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const name = this.name.value;
+    const phone = this.phone.value;
+    const address = this.address.value;
+    const payment = this.payment.value;
+
+    // Nội dung tin nhắn
+    const message = `📦 Đơn hàng mới\n👤 Họ tên: ${name}\n📞 SĐT: ${phone}\n🏠 Địa chỉ: ${address}\n💳 Thanh toán: ${payment}`;
+
+    // Thay bằng token & chat_id của bạn
+    const BOT_TOKEN = "YOUR_BOT_TOKEN";
+    const CHAT_ID = "YOUR_CHAT_ID";
+
+    fetch(`https://api.telegram.org/bot${8442471639:AAGDomAwO9dEFBxgjx6tM4kprj0OzCyY1rw}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: CHAT_ID,
+        text: message
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      alert("Đặt hàng thành công! Chúng tôi sẽ liên hệ sớm.");
+      popup.style.display = "none";
+      this.reset();
+    })
+    .catch(err => {
+      alert("Có lỗi xảy ra, vui lòng thử lại!");
+      console.error(err);
+    });
+  });
+</script>
+
 
   <div style="text-align:center; margin-top:30px">
     <a href="products.html" style="color:#00b4d8; text-decoration:underline">← Tiếp tục mua hàng</a>
   </div>
 </body>
 </html>
+
