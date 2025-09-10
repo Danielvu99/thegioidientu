@@ -201,17 +201,18 @@
     const message = `📦 Đơn hàng mới\n👤 Họ tên: ${name}\n📞 SĐT: ${phone}\n🏠 Địa chỉ: ${address}\n💳 Thanh toán: ${payment}`;
 
     // Thay bằng token & chat_id của bạn
-    const BOT_TOKEN = "YOUR_BOT_TOKEN";
-    const CHAT_ID = "YOUR_CHAT_ID";
-
-    fetch(`https://api.telegram.org/bot${8442471639:AAGDomAwO9dEFBxgjx6tM4kprj0OzCyY1rw}/sendMessage`, {
+    const BOT_TOKEN = "8442471639:AAGDomAwO9dEFBxgjx6tM4kprj0OzCyY1rw"; // token bot
+    const CHAT_ID = "5979711401"; // chat_id user của bạn
+    
+    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         chat_id: CHAT_ID,
-        text: message
+        text: "✅ Test gửi đơn hàng thành công!"
       })
     })
+
     .then(res => res.json())
     .then(data => {
       alert("Đặt hàng thành công! Chúng tôi sẽ liên hệ sớm.");
@@ -231,4 +232,5 @@
   </div>
 </body>
 </html>
+
 
