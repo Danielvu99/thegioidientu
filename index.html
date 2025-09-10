@@ -164,7 +164,7 @@
                     <span id="cartTotal" class="text-xl font-bold text-red-500">0đ</span>
                 </div>
                 <button onclick="openCheckout()" class="w-full bg-red-500 text-white py-3 rounded-lg hover:bg-red-600 transition-all font-medium">
-                    Thanh toán
+                    Đặt hàng
                 </button>
             </div>
         </div>
@@ -187,7 +187,7 @@
                     <option value="cod">Tiền mặt khi nhận hàng</option>
                     <option value="online">Thanh toán online</option>
                 </select>
-                <button type="submit" class="w-full bg-red-500 text-white py-2 rounded-lg">Xác nhận thanh toán</button>
+                <button type="submit" class="w-full bg-red-500 text-white py-2 rounded-lg">Xác nhận đặt hàng</button>
             </form>
         </div>
     </div>
@@ -315,13 +315,39 @@ function filterProducts(category){
 }
 
 function addToCart(id){
-    const p=products.find(x=>x.id===id);
-    const item=cart.find(x=>x.id===id);
-    if(item)item.quantity+=1;
-    else cart.push({...p,quantity:1});
+    const p = products.find(x => x.id === id);
+    const item = cart.find(x => x.id === id);
+    if(item) item.quantity += 1;
+    else cart.push({...p, quantity: 1});
     updateCartUI();
-    alert('Đã thêm sản phẩm vào giỏ!');
+
+    // Tạo popup
+    const popup = document.createElement('div');
+    popup.textContent = "Đã thêm sản phẩm vào giỏ hàng ✅";
+    popup.style.position = "fixed";
+    popup.style.top = "20px";
+    popup.style.right = "20px";
+    popup.style.backgroundColor = "#22c55e"; // xanh lá
+    popup.style.color = "#fff";
+    popup.style.padding = "12px 20px";
+    popup.style.borderRadius = "8px";
+    popup.style.boxShadow = "0 4px 6px rgba(0,0,0,0.2)";
+    popup.style.zIndex = 1000;
+    popup.style.opacity = 0;
+    popup.style.transition = "opacity 0.3s ease";
+
+    document.body.appendChild(popup);
+
+    // Hiện popup
+    setTimeout(() => { popup.style.opacity = 1; }, 50);
+
+    // Ẩn sau 1.5s
+    setTimeout(() => {
+        popup.style.opacity = 0;
+        setTimeout(() => document.body.removeChild(popup), 300);
+    }, 1500);
 }
+
 
 function buyNow(id){ addToCart(id); toggleCart(); }
 
@@ -403,3 +429,4 @@ window.addEventListener('click',function(e){
 </script>
 </body>
 </html>
+
