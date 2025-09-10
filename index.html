@@ -1,224 +1,124 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thế Giới Điện Tử - Uy tín tạo nên thương hiệu</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .gradient-bg { background: linear-gradient(135deg, #a8e6cf 0%, #dcedc1 50%, #ffd3e1 100%); }
-        .product-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
-        .category-item:hover { background: linear-gradient(135deg, #a8e6cf, #dcedc1); }
-        .search-focus:focus { box-shadow: 0 0 0 3px rgba(168, 230, 207, 0.3); }
-        /* Popup style */
-        .popup { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
-        .popup-content { background: #fff; margin: 10% auto; padding: 20px; border-radius: 12px; width: 400px; position: relative; }
-        .close { position: absolute; top: 10px; right: 15px; font-size: 22px; cursor: pointer; }
-    </style>
-</head>
-<body class="bg-gray-50">
-    <!-- Header & Navigation (giữ nguyên từ code cũ) -->
-    <header class="gradient-bg shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto px-4">
-            <!-- Top Bar -->
-            <div class="flex justify-between items-center py-2 text-sm border-b border-white/20">
-                <div class="flex items-center space-x-4 text-gray-700">
-                    <span><i class="fas fa-phone mr-1"></i>0986689968</span>
-                    <span><i class="fas fa-map-marker-alt mr-1"></i>P. Trần Hưng Đạo, TP Thủy Nguyên, Hải Phòng</span>
-                </div>
-                <div class="flex items-center space-x-3">
-                    <a target="_blank" href="https://zalo.me/0986689968" class="text-blue-600 hover:text-blue-800"><i class="fab fa-zalo"></i></a>
-                    <a target="_blank" href="https://shopee.vn/shop/708266" class="text-orange-500 hover:text-orange-700"><i class="fas fa-shopping-bag"></i></a>
-                    <a target="_blank" href="https://www.facebook.com/DanielVu1999/" class="text-blue-600 hover:text-blue-800"><i class="fab fa-facebook"></i></a>
-                    <a target="_blank" href="https://t.me/Daniel83869" class="text-blue-400 hover:text-blue-600"><i class="fab fa-telegram"></i></a>
-                </div>
-            </div>
-            
-            <!-- Main Header -->
-            <div class="flex items-center justify-between py-4">
-                <div class="flex items-center">
-                    <div class="bg-white rounded-lg p-2 mr-3 shadow-md">
-                        <i class="fas fa-bolt text-2xl text-green-500"></i>
-                    </div>
-                    <div>
-                        <h1 class="text-2xl font-bold text-gray-800">Thế Giới Điện Tử</h1>
-                        <p class="text-sm text-gray-600 italic">Uy tín tạo nên thương hiệu</p>
-                    </div>
-                </div>
-                
-                <!-- Search Bar -->
-                <div class="flex-1 max-w-2xl mx-8">
-                    <div class="relative">
-                        <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." 
-                               class="w-full px-4 py-3 pl-12 rounded-full border-2 border-white bg-white/90 backdrop-blur-sm search-focus outline-none">
-                        <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                    </div>
-                </div>
-                
-                <!-- User Actions -->
-                <div class="flex items-center space-x-4">
-                    <button onclick="toggleLogin()" class="flex items-center space-x-2 bg-white/80 hover:bg-white px-4 py-2 rounded-full transition-all">
-                        <i class="fas fa-user text-gray-600"></i>
-                        <span class="text-gray-700">Đăng nhập</span>
-                    </button>
-                    <button onclick="toggleCart()" class="relative bg-white/80 hover:bg-white p-3 rounded-full transition-all">
-                        <i class="fas fa-shopping-cart text-gray-600"></i>
-                        <span id="cartCount" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Navigation (giữ nguyên từ code cũ) -->
-    <nav class="bg-white shadow-md">
-        <div class="container mx-auto px-4">
-            <div class="flex items-center justify-center space-x-8 py-3">
-                <button onclick="filterProducts('all')" class="nav-item px-4 py-2 rounded-full hover:bg-green-100 transition-all font-medium text-gray-700 active">
-                    <i class="fas fa-home mr-2"></i>Tất cả
-                </button>
-                <button onclick="filterProducts('phone')" class="nav-item px-4 py-2 rounded-full hover:bg-green-100 transition-all font-medium text-gray-700">
-                    <i class="fas fa-mobile-alt mr-2"></i>Điện thoại
-                </button>
-                <button onclick="filterProducts('laptop')" class="nav-item px-4 py-2 rounded-full hover:bg-green-100 transition-all font-medium text-gray-700">
-                    <i class="fas fa-laptop mr-2"></i>Laptop
-                </button>
-                <button onclick="filterProducts('tv')" class="nav-item px-4 py-2 rounded-full hover:bg-green-100 transition-all font-medium text-gray-700">
-                    <i class="fas fa-tv mr-2"></i>Tivi
-                </button>
-                <button onclick="filterProducts('fridge')" class="nav-item px-4 py-2 rounded-full hover:bg-green-100 transition-all font-medium text-gray-700">
-                    <i class="fas fa-snowflake mr-2"></i>Tủ lạnh
-                </button>
-                <button onclick="filterProducts('microwave')" class="nav-item px-4 py-2 rounded-full hover:bg-green-100 transition-all font-medium text-gray-700">
-                    <i class="fas fa-microchip mr-2"></i>Lò vi sóng
-                </button>
-                <button onclick="filterProducts('accessories')" class="nav-item px-4 py-2 rounded-full hover:bg-green-100 transition-all font-medium text-gray-700">
-                    <i class="fas fa-headphones mr-2"></i>Phụ kiện
-                </button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Banner (giữ nguyên từ code cũ) -->
-    <section class="gradient-bg py-12">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold text-gray-800 mb-4">Khuyến Mãi Đặc Biệt</h2>
-            <p class="text-xl text-gray-600 mb-8">Giảm giá lên đến 50% cho tất cả sản phẩm điện tử</p>
-        </div>
-    </section>
-
-    <!-- Products -->
-    <section class="py-12">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Sản Phẩm Nổi Bật</h2>
-            <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
-        </div>
-    </section>
-
-    <!-- Login Modal -->
-    <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
-        <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-gray-800">Đăng nhập</h3>
-                <button onclick="toggleLogin()" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-            </div>
-            <form class="space-y-4">
-                <div>
-                    <label class="block text-gray-700 mb-2">Số điện thoại</label>
-                    <input type="tel" class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-300" placeholder="Nhập số điện thoại">
-                </div>
-                <div>
-                    <label class="block text-gray-700 mb-2">Mật khẩu</label>
-                    <input type="password" class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-300" placeholder="Nhập mật khẩu">
-                </div>
-                <button type="button" onclick="login()" class="w-full bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 transition-all font-medium">
-                    Đăng nhập
-                </button>
-                <p class="text-center text-gray-600">
-                    Chưa có tài khoản? <a href="#" class="text-green-500 hover:text-green-600">Đăng ký ngay</a>
-                </p>
-            </form>
-        </div>
-    </div>
-
-    <!-- Cart Modal -->
-    <div id="cartModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
-        <div class="bg-white rounded-lg p-8 max-w-2xl w-full mx-4 max-h-96 overflow-y-auto">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-gray-800">Giỏ hàng</h3>
-                <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-            </div>
-            <div id="cartItems" class="space-y-4">
-                <p class="text-gray-500 text-center py-8">Giỏ hàng trống</p>
-            </div>
-            <div class="border-t pt-4 mt-4">
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-xl font-bold">Tổng cộng:</span>
-                    <span id="cartTotal" class="text-xl font-bold text-red-500">0đ</span>
-                </div>
-                <button onclick="openCheckout()" class="w-full bg-red-500 text-white py-3 rounded-lg hover:bg-red-600 transition-all font-medium">
-                    Thanh toán
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Checkout Popup -->
-    <div id="checkoutPopup" class="popup">
-        <div class="popup-content">
-            <span class="close" onclick="closeCheckout()">&times;</span>
-            <h2 class="text-2xl font-bold mb-4">Thông tin thanh toán</h2>
-            <form id="checkoutForm">
-                <label>Họ tên:</label>
-                <input type="text" name="name" required class="w-full border rounded px-3 py-2 mb-2">
-                <label>Số điện thoại:</label>
-                <input type="text" name="phone" required class="w-full border rounded px-3 py-2 mb-2">
-                <label>Địa chỉ:</label>
-                <textarea name="address" required class="w-full border rounded px-3 py-2 mb-2"></textarea>
-                <label>Phương thức thanh toán:</label>
-                <select name="payment" required class="w-full border rounded px-3 py-2 mb-4">
-                    <option value="cod">Tiền mặt khi nhận hàng</option>
-                    <option value="online">Thanh toán online</option>
-                </select>
-                <button type="submit" class="w-full bg-red-500 text-white py-2 rounded-lg">Xác nhận thanh toán</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Footer (giữ nguyên từ code cũ) -->
-    <footer class="bg-gray-800 text-white py-12">
-        <div class="container mx-auto px-4 text-center">
-            &copy; 2024 Thế Giới Điện Tử. Tất cả quyền được bảo lưu.
-        </div>
-    </footer>
-
 <script>
-let products = [
-    // Danh sách sản phẩm giống như bạn gửi (14 sản phẩm)
+const products = [
+    {id:1,name:"iPhone 17 Pro Max",price:45990000,originalPrice:47990000,category:"phone",image:"https://cdn.xtmobile.vn/vnt_upload/product/09_2025/thumbs/600_ip17pm_1.png",description:"Điện thoại thông minh cao cấp với chip A19 Pro"},
+    {id:2,name:"iPhone 15 Pro Max",price:29990000,originalPrice:34990000,category:"phone",image:"https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-15-pro-max_3.png",description:"Điện thoại thông minh cao cấp với chip A17 Pro"},
+    {id:3,name:"Samsung Galaxy S25 Ultra 12GB 256GB",price:26990000,originalPrice:31990000,category:"phone",image:"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/d/i/dien-thoai-samsung-galaxy-s25-ultra_1__3.png",description:"Flagship Android với S Pen và camera 200MP"},
+    {id:4,name:"ZTE Nubia Red Magic 10S Pro Plus",price:21650000,originalPrice:23990000,category:"phone",image:"https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/nubia_red_magic_10_pro_dat_diem_so_antutu_kich_tran_dinh_noc_bay_phap_phoi_1_073cfe39da.jpg",description:"Flagship Gaming mạnh nhất thế giới"},
+    {id:5,name:"MacBook Air M3",price:28990000,originalPrice:32990000,category:"laptop",image:"https://cdn2.cellphones.com.vn/x/media/catalog/product/m/a/macbook-air-m3-13-inch-2024_1__4.png",description:"Laptop siêu mỏng với chip M3 mạnh mẽ"},
+    {id:6,name:"Dell XPS 13",price:24990000,originalPrice:29990000,category:"laptop",image:"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=400&fit=crop&crop=center",description:"Laptop cao cấp cho doanh nhân"},
+    {id:7,name:"Samsung QLED 65 inch",price:18990000,originalPrice:24990000,category:"tv",image:"https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=400&h=400&fit=crop&crop=center",description:"Smart TV 4K với công nghệ QLED"},
+    {id:8,name:"LG OLED 55 inch",price:16990000,originalPrice:21990000,category:"tv",image:"https://images.unsplash.com/photo-1567690187548-f07b1d7bf5a9?w=400&h=400&fit=crop&crop=center",description:"TV OLED với chất lượng hình ảnh tuyệt vời"},
+    {id:9,name:"Tủ lạnh Samsung Inverter",price:12990000,originalPrice:15990000,category:"fridge",image:"https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=400&h=400&fit=crop&crop=center",description:"Tủ lạnh 2 cánh tiết kiệm điện"},
+    {id:10,name:"Tủ lạnh LG Side by Side",price:19990000,originalPrice:24990000,category:"fridge",image:"https://www.lg.com/content/dam/channel/wcms/vn/rf/lsi63blma/gallery/2010-1.jpg/jcr:content/renditions/thum-1600x1062.jpeg",description:"Tủ lạnh cửa đôi cao cấp"},
+    {id:11,name:"Lò vi sóng Panasonic",price:2990000,originalPrice:3990000,category:"microwave",image:"https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=400&h=400&fit=crop&crop=center",description:"Lò vi sóng 25L với nhiều chức năng"},
+    {id:12,name:"Lò vi sóng Sharp Inverter",price:3990000,originalPrice:4990000,category:"microwave",image:"https://images.unsplash.com/photo-1585659722983-3a675dabf23d?w=400&h=400&fit=crop&crop=center",description:"Lò vi sóng Inverter tiết kiệm điện"},
+    {id:13,name:"AirPods Pro 2",price:5990000,originalPrice:6990000,category:"accessories",image:"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/a/i/airpods_pro_2_sep24_pdp_image_position_2__vn-vi.jpg",description:"Tai nghe không dây chống ồn"},
+    {id:14,name:"Sạc dự phòng Anker 20000mAh",price:1290000,originalPrice:1590000,category:"accessories",image:"https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/p/i/pin-sac-du-phong-anker-prime-a1336-20000mah-200w_1_.png",description:"Pin sạc dự phòng dung lượng cao"}
 ];
 
 let cart = [];
 
 function formatCurrency(amount){ return amount.toLocaleString('vi-VN')+'đ'; }
-function renderProducts(){ /* giống code trước */ }
-function filterProducts(category){ /* giống code trước */ }
-function addToCart(id){ /* giống code trước */ }
+
+function renderProducts(productsToRender=products){
+    const grid=document.getElementById('productGrid');
+    grid.innerHTML='';
+    productsToRender.forEach(p=>{
+        const discount=Math.round((1-p.price/p.originalPrice)*100);
+        const card=document.createElement('div');
+        card.className='product-card bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300';
+        card.innerHTML=`
+            <div class="relative">
+                <div class="h-48 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center overflow-hidden">
+                    <img src="${p.image}" alt="${p.name}" class="w-full h-full object-contain hover:scale-105 transition-transform duration-300"
+                        onerror="this.src=''; this.alt='Hình ảnh không tải'; this.style.display='none'; this.parentElement.innerHTML='<div class=\\'text-6xl text-gray-400\\'>📦</div>';"/>
+                </div>
+                <div class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-bold">
+                    -${discount}%
+                </div>
+            </div>
+            <div class="p-4">
+                <h3 class="font-bold text-lg mb-2 text-gray-800">${p.name}</h3>
+                <p class="text-gray-600 text-sm mb-3">${p.description}</p>
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <span class="text-red-500 font-bold text-xl">${formatCurrency(p.price)}</span>
+                        <span class="text-gray-400 line-through text-sm ml-2">${formatCurrency(p.originalPrice)}</span>
+                    </div>
+                </div>
+                <div class="flex space-x-2">
+                    <button onclick="addToCart(${p.id})" class="flex-1 bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-all font-medium">
+                        <i class="fas fa-cart-plus mr-2"></i>Thêm vào giỏ
+                    </button>
+                    <button onclick="buyNow(${p.id})" class="flex-1 bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition-all font-medium">
+                        Mua ngay
+                    </button>
+                </div>
+            </div>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+function filterProducts(category){
+    const filtered=category==='all'?products:products.filter(p=>p.category===category);
+    renderProducts(filtered);
+    document.querySelectorAll('.nav-item').forEach(item=>item.classList.remove('active','bg-green-100'));
+    event.target.classList.add('active','bg-green-100');
+}
+
+function addToCart(id){
+    const p=products.find(x=>x.id===id);
+    const item=cart.find(x=>x.id===id);
+    if(item)item.quantity+=1;
+    else cart.push({...p,quantity:1});
+    updateCartUI();
+    alert('Đã thêm sản phẩm vào giỏ!');
+}
+
 function buyNow(id){ addToCart(id); toggleCart(); }
-function updateCartUI(){ /* giống code trước */ }
-function updateQuantity(id, change){ /* giống code trước */ }
-function removeFromCart(id){ /* giống code trước */ }
+
+function updateCartUI(){
+    const cartCount=document.getElementById('cartCount');
+    const cartItems=document.getElementById('cartItems');
+    const cartTotal=document.getElementById('cartTotal');
+    const totalItems=cart.reduce((sum,i)=>sum+i.quantity,0);
+    const totalPrice=cart.reduce((sum,i)=>sum+i.price*i.quantity,0);
+    cartCount.textContent=totalItems;
+    cartTotal.textContent=formatCurrency(totalPrice);
+    if(cart.length===0) cartItems.innerHTML='<p class="text-gray-500 text-center py-8">Giỏ hàng trống</p>';
+    else cartItems.innerHTML=cart.map(item=>`
+        <div class="flex items-center justify-between p-4 border rounded-lg">
+            <div class="flex items-center space-x-4">
+                <div class="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
+                    <img src="${item.image}" alt="${item.name}" class="w-full h-full object-contain"
+                        onerror="this.src=''; this.alt='Hình ảnh không tải'; this.style.display='none'; this.parentElement.innerHTML='<div class=\\'text-2xl text-gray-400\\'>📦</div>';"/>
+                </div>
+                <div>
+                    <h4 class="font-medium">${item.name}</h4>
+                    <p class="text-red-500 font-bold">${formatCurrency(item.price)}</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button onclick="updateQuantity(${item.id},-1)" class="bg-gray-200 hover:bg-gray-300 w-8 h-8 rounded-full flex items-center justify-center"><i class="fas fa-minus text-sm"></i></button>
+                <span class="w-8 text-center">${item.quantity}</span>
+                <button onclick="updateQuantity(${item.id},1)" class="bg-gray-200 hover:bg-gray-300 w-8 h-8 rounded-full flex items-center justify-center"><i class="fas fa-plus text-sm"></i></button>
+                <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-700 ml-2"><i class="fas fa-trash"></i></button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function updateQuantity(id,change){
+    const item=cart.find(x=>x.id===id);
+    if(item){ item.quantity+=change; if(item.quantity<=0) removeFromCart(id); else updateCartUI(); }
+}
+
+function removeFromCart(id){ cart=cart.filter(x=>x.id!==id); updateCartUI(); }
+
 function toggleLogin(){ document.getElementById('loginModal').classList.toggle('hidden'); }
 function toggleCart(){ document.getElementById('cartModal').classList.toggle('hidden'); }
-function login(){ alert('Đăng nhập thành công!'); toggleLogin(); }
 
-// --- MỚI: Checkout ---
 function openCheckout(){
     if(cart.length===0){ alert('Giỏ hàng trống!'); return; }
     toggleCart();
@@ -226,15 +126,14 @@ function openCheckout(){
 }
 function closeCheckout(){ document.getElementById('checkoutPopup').style.display='none'; }
 
-document.getElementById('checkoutForm').addEventListener('submit', function(e){
+document.getElementById('checkoutForm').addEventListener('submit',function(e){
     e.preventDefault();
-    let data = new FormData(this);
-    let msg = `Đơn hàng mới:\nHọ tên: ${data.get('name')}\nSĐT: ${data.get('phone')}\nĐịa chỉ: ${data.get('address')}\nThanh toán: ${data.get('payment')}\nSản phẩm:\n` + 
+    let data=new FormData(this);
+    let msg=`Đơn hàng mới:\nHọ tên: ${data.get('name')}\nSĐT: ${data.get('phone')}\nĐịa chỉ: ${data.get('address')}\nThanh toán: ${data.get('payment')}\nSản phẩm:\n`+
         cart.map(p=>`- ${p.name} x${p.quantity}`).join('\n');
-    // Gửi Telegram
-    fetch('https://api.telegram.org/botYOUR_BOT_TOKEN/sendMessage?chat_id=YOUR_CHAT_ID&text='+encodeURIComponent(msg))
-        .then(res=>res.json()).then(()=>alert('Đặt hàng thành công!'));
-    cart=[]; updateCartUI(); closeCheckout();
+    fetch('https://api.telegram.org/bot8442471639:AAGDomAwO9dEFBxgjx6tM4kprj0OzCyY1rw/sendMessage?chat_id=5979711401&text=' + encodeURIComponent(msg))
+        .then(res=>res.json())
+        .then(()=>{ alert('Đặt hàng thành công!'); cart=[]; updateCartUI(); closeCheckout(); });
 });
 
 // Search
@@ -248,12 +147,10 @@ document.addEventListener('DOMContentLoaded',()=>{
     updateCartUI();
 });
 
-// Close modals clicking outside
+// Close modals by clicking outside
 window.addEventListener('click',function(e){
     if(e.target.id==='loginModal') toggleLogin();
     if(e.target.id==='cartModal') toggleCart();
     if(e.target.id==='checkoutPopup') closeCheckout();
 });
 </script>
-</body>
-</html>
