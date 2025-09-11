@@ -59,8 +59,8 @@
       font-size: 16px;
     }
 
-    /* Popup style */
-    .popup {
+    /* Popup thanh toán */
+    .popup, .success-popup {
       display: none; 
       position: fixed; 
       z-index: 1000; 
@@ -68,17 +68,28 @@
       width: 100%; height: 100%; 
       background-color: rgba(0,0,0,0.5);
     }
-    .popup-content {
+    .popup-content, .success-popup-content {
       background: #fff;
       margin: 10% auto; 
       padding: 20px;
       border-radius: 12px;
       width: 400px;
+      max-width: 90%;
+      position: relative;
+      text-align: center;
     }
     .close {
-      float: right;
-      font-size: 20px;
+      position: absolute;
+      top: 10px; right: 15px;
+      font-size: 24px;
+      font-weight: bold;
       cursor: pointer;
+    }
+    .success-popup-content {
+      background-color: #22c55e;
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -99,81 +110,58 @@
   </table>
   <div class="total" id="total-price">Tổng cộng: 0₫</div>
 
-  <!-- Nút Thanh Toán -->
-<div class="checkout">
-  <button id="checkoutBtn" class="checkout-btn">Thanh Toán</button>
-</div>
-
-<!-- Popup -->
-<div id="checkoutPopup" class="popup">
-  <div class="popup-content">
-    <span id="closePopup" class="close">&times;</span>
-    <h2>Thông tin thanh toán</h2>
-    <form id="checkoutForm">
-      <label>Họ tên:</label>
-      <input type="text" name="name" required><br>
-      <label>Số điện thoại:</label>
-      <input type="text" name="phone" required><br>
-      <label>Địa chỉ nhận hàng:</label>
-      <textarea name="address" required></textarea><br>
-      <label>Phương thức thanh toán:</label>
-      <select name="payment" required>
-        <option value="cod">Tiền mặt khi nhận hàng</option>
-        <option value="online">Thanh toán online</option>
-      </select><br><br>
-      <button type="submit">Xác nhận thanh toán</button>
-    </form>
+  <div class="checkout">
+    <button id="checkoutBtn">Thanh Toán</button>
   </div>
-</div>
 
-<style>
-.popup {
-  display: none; 
-  position: fixed; 
-  z-index: 9999; 
-  left: 0; top: 0; 
-  width: 100%; height: 100%; 
-  background-color: rgba(0,0,0,0.5);
-}
+  <!-- Popup thông tin thanh toán -->
+  <div id="checkoutPopup" class="popup">
+    <div class="popup-content">
+      <span id="closePopup" class="close">&times;</span>
+      <h2>Thông tin thanh toán</h2>
+      <form id="checkoutForm">
+        <label>Họ tên:</label>
+        <input type="text" name="name" required><br>
+        <label>Số điện thoại:</label>
+        <input type="text" name="phone" required><br>
+        <label>Địa chỉ nhận hàng:</label>
+        <textarea name="address" required></textarea><br>
+        <label>Phương thức thanh toán:</label>
+        <select name="payment" required>
+          <option value="cod">Tiền mặt khi nhận hàng</option>
+          <option value="online">Thanh toán online</option>
+        </select><br><br>
+        <button type="submit">Xác nhận thanh toán</button>
+      </form>
+    </div>
+  </div>
 
-.popup-content {
-  background: #fff;
-  margin: 10% auto; 
-  padding: 20px;
-  border-radius: 12px;
-  width: 400px;
-  max-width: 90%;
-  position: relative;
-}
-
-.close {
-  position: absolute;
-  top: 10px; right: 15px;
-  font-size: 24px;
-  font-weight: bold;
-  cursor: pointer;
-}
-</style>
+  <!-- Popup thành công -->
+  <div id="successPopup" class="success-popup">
+    <div class="success-popup-content">
+      ✅ Đặt hàng thành công! Chúng tôi sẽ liên hệ sớm.
+    </div>
+  </div>
 
 <script>
-// --- Popup hiển thị ---
+const BOT_TOKEN = "8442471639:AAGDomAwO9dEFBxgjx6tM4kprj0OzCyY1rw";
+const CHAT_IDS = ["5979711401", "2133228445"];
+
+// --- Popup thanh toán ---
 const popup = document.getElementById("checkoutPopup");
 const btn = document.getElementById("checkoutBtn");
 const closeBtn = document.getElementById("closePopup");
 
-btn.addEventListener("click", () => {
+btn.addEventListener("click", () => { popup.style.display = "block"; });
+closeBtn.addEventListener("click", () => { popup.style.display = "none"; });
+window.addEventListener("click", (e) => { if(e.target == popup) popup.style.display = "none"; });
+
+// --- Popup thành công ---
+function showSuccessPopup() {
+  const popup = document.getElementById("successPopup");
   popup.style.display = "block";
-});
-
-closeBtn.addEventListener("click", () => {
-  popup.style.display = "none";
-});
-
-window.addEventListener("click", (e) => {
-  if (e.target == popup) {
-    popup.style.display = "none";
-  }
-});
+  setTimeout(() => { popup.style.display = "none"; }, 2000);
+}
 
 // --- Hàm format tiền ---
 function formatCurrency(amount) {
@@ -221,27 +209,32 @@ function removeItem(index) {
 
 loadCart();
 
+// --- Tạo mã đơn hàng ngẫu nhiên ---
+function generateOrderCode(length=9) {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let code = "";
+  for(let i=0;i<length;i++) code += chars.charAt(Math.floor(Math.random()*chars.length));
+  return code;
+}
+
 // --- Gửi đơn về Telegram ---
 document.getElementById("checkoutForm").addEventListener("submit", function(e) {
   e.preventDefault();
-
   const name = this.name.value.trim();
   const phone = this.phone.value.trim();
   const address = this.address.value.trim();
   const payment = this.payment.value;
-
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  if(cart.length === 0) {
-    alert("Giỏ hàng trống!");
-    return;
-  }
+  if(cart.length === 0) { alert("Giỏ hàng trống!"); return; }
 
-  let items = cart.map(item => `- ${item.name} x${item.quantity} = ${formatCurrency(item.price * item.quantity)}`).join("\n");
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const total = cart.reduce((sum, item) => sum + item.price*item.quantity, 0);
+  const orderCode = generateOrderCode();
 
+  let items = cart.map(item => `- ${item.name} x${item.quantity} = ${formatCurrency(item.price*item.quantity)}`).join("\n");
   const orderTime = new Date().toLocaleString("vi-VN");
 
   const message = `📦 Đơn hàng mới
+🆔 Mã đơn: ${orderCode}
 ⏰ Thời gian: ${orderTime}
 👤 Họ tên: ${name}
 📞 SĐT: ${phone}
@@ -251,35 +244,31 @@ document.getElementById("checkoutForm").addEventListener("submit", function(e) {
 ${items}
 💰 Tổng cộng: ${formatCurrency(total)}`;
 
-  const CHAT_IDS = ["5979711401", "2133228445"];
-
-Promise.all(
-  CHAT_IDS.map(chatId => 
-    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ chat_id: chatId, text: message })
-    })
+  Promise.all(
+    CHAT_IDS.map(chatId => 
+      fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chat_id: chatId, text: message })
+      })
+    )
   )
-)
-.then(() => {
-  alert("Đặt hàng thành công! Chúng tôi sẽ liên hệ sớm.");
-  popup.style.display = "none";
-  this.reset();
-  localStorage.removeItem("cart");
-  loadCart();
-})
-.catch(err => {
-  alert("Có lỗi xảy ra, vui lòng thử lại!");
-  console.error(err);
+  .then(() => {
+    showSuccessPopup();
+    popup.style.display = "none";
+    this.reset();
+    localStorage.removeItem("cart");
+    loadCart();
+  })
+  .catch(err => {
+    alert("Có lỗi xảy ra, vui lòng thử lại!");
+    console.error(err);
+  });
 });
-  </script>
+</script>
 
-  <div style="text-align:center; margin-top:30px">
-    <a href="products.html" style="color:#00b4d8; text-decoration:underline">← Tiếp tục mua hàng</a>
-  </div>
+<div style="text-align:center; margin-top:30px">
+  <a href="products.html" style="color:#00b4d8; text-decoration:underline">← Tiếp tục mua hàng</a>
+</div>
 </body>
 </html>
-
-
-
