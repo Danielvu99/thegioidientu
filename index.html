@@ -416,8 +416,21 @@ function closeCheckout(){ document.getElementById('checkoutPopup').style.display
 document.getElementById('checkoutForm').addEventListener('submit',function(e){
     e.preventDefault();
     let data=new FormData(this);
-    let msg=`Đơn hàng mới:\nHọ tên: ${data.get('name')}\nSĐT: ${data.get('phone')}\nĐịa chỉ: ${data.get('address')}\nThanh toán: ${data.get('payment')}\nSản phẩm:\n`+
-        cart.map(p=>`- ${p.name} x${p.quantity}`).join('\n');
+   // Tạo mã đơn hàng ngẫu nhiên 9-10 ký tự
+const orderCode = Math.random().toString(36).substring(2, 11).toUpperCase();
+
+const items = cart.map(p => `- ${p.name} x${p.quantity} = ${formatCurrency(p.price * p.quantity)}`).join("\n");
+const total = cart.reduce((sum, p) => sum + p.price * p.quantity, 0);
+
+const msg = `📦 Đơn hàng mới #${orderCode}
+👤 Họ tên: ${data.get('name')}
+📞 SĐT: ${data.get('phone')}
+🏠 Địa chỉ: ${data.get('address')}
+💳 Thanh toán: ${data.get('payment')}
+🛒 Sản phẩm:
+${items}
+💰 Tổng cộng: ${formatCurrency(total)}`;
+
     fetch('https://api.telegram.org/bot8442471639:AAGDomAwO9dEFBxgjx6tM4kprj0OzCyY1rw/sendMessage?chat_id=5979711401&text=' + encodeURIComponent(msg))
     fetch('https://api.telegram.org/bot8442471639:AAGDomAwO9dEFBxgjx6tM4kprj0OzCyY1rw/sendMessage?chat_id=2133228445&text=' + encodeURIComponent(msg))       
         .then(res=>res.json())
@@ -444,6 +457,7 @@ window.addEventListener('click',function(e){
 </script>
 </body>
 </html>
+
 
 
 
