@@ -13,31 +13,20 @@
         .product-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
         .category-item:hover { background: linear-gradient(135deg, #a8e6cf, #dcedc1); }
         .search-focus:focus { box-shadow: 0 0 0 3px rgba(168, 230, 207, 0.3); }
-    
         /* Popup style */
         .popup { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
         .popup-content { background: #fff; margin: 10% auto; padding: 20px; border-radius: 12px; width: 90%; max-width: 400px; position: relative; }
         .close { position: absolute; top: 10px; right: 15px; font-size: 22px; cursor: pointer; }
-    
-        /* Responsive chỉnh sửa cho mobile */
-        @media (max-width: 640px) {
-            header .flex { flex-wrap: wrap; }
-            nav .flex { overflow-x: auto; white-space: nowrap; }
-            nav .nav-item { flex: 0 0 auto; }
+        @media (max-width: 768px){
+            .product-card { margin-bottom: 16px; }
             .popup-content { width: 95%; margin: 20% auto; }
-            #loginModal .max-w-md { width: 95%; }
-            #cartModal .max-w-2xl { width: 95%; max-height: 80vh; }
-            footer .grid { grid-template-columns: 1fr; text-align: center; }
-            footer .space-y-2 { text-align: center; }
         }
     </style>
-
 </head>
 <body class="bg-gray-50">
-    <!-- Header & Navigation (giữ nguyên từ code cũ) -->
+    <!-- Header & Navigation -->
     <header class="gradient-bg shadow-lg sticky top-0 z-50">
         <div class="container mx-auto px-4">
-            <!-- Top Bar -->
             <div class="flex justify-between items-center py-2 text-sm border-b border-white/20">
                 <div class="flex items-center space-x-4 text-gray-700">
                     <span><i class="fas fa-phone mr-1"></i>0986689968</span>
@@ -51,7 +40,6 @@
                 </div>
             </div>
             
-            <!-- Main Header -->
             <div class="flex items-center justify-between py-4">
                 <div class="flex items-center">
                     <div class="bg-white rounded-lg p-2 mr-3 shadow-md">
@@ -63,7 +51,6 @@
                     </div>
                 </div>
                 
-                <!-- Search Bar -->
                 <div class="flex-1 max-w-2xl mx-8">
                     <div class="relative">
                         <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." 
@@ -72,7 +59,6 @@
                     </div>
                 </div>
                 
-                <!-- User Actions -->
                 <div class="flex items-center space-x-4">
                     <button onclick="toggleLogin()" class="flex items-center space-x-2 bg-white/80 hover:bg-white px-4 py-2 rounded-full transition-all">
                         <i class="fas fa-user text-gray-600"></i>
@@ -87,10 +73,10 @@
         </div>
     </header>
 
-    <!-- Navigation (giữ nguyên từ code cũ) -->
+    <!-- Navigation -->
     <nav class="bg-white shadow-md">
         <div class="container mx-auto px-4">
-            <div class="flex items-center justify-center space-x-8 py-3">
+            <div class="flex items-center justify-center space-x-8 py-3 flex-wrap">
                 <button onclick="filterProducts('all')" class="nav-item px-4 py-2 rounded-full hover:bg-green-100 transition-all font-medium text-gray-700 active">
                     <i class="fas fa-home mr-2"></i>Tất cả
                 </button>
@@ -116,7 +102,7 @@
         </div>
     </nav>
 
-    <!-- Banner (giữ nguyên từ code cũ) -->
+    <!-- Banner -->
     <section class="gradient-bg py-12">
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-4xl font-bold text-gray-800 mb-4">Khuyến Mãi Đặc Biệt</h2>
@@ -205,6 +191,7 @@
             </form>
         </div>
     </div>
+
     <!-- Footer -->
     <footer class="bg-gray-800 text-white py-12">
         <div class="container mx-auto px-4">
@@ -252,202 +239,234 @@
         </div>
     </footer>
 
-    <!-- Footer (giữ nguyên từ code cũ) -->
-    <footer class="bg-gray-800 text-white py-12">
-        <div class="container mx-auto px-4 text-center">
-            &copy; 2024 Thế Giới Điện Tử. Tất cả quyền được bảo lưu.
-        </div>
-    </footer>
-
 <script>
+// Danh sách sản phẩm
 const products = [
     {id:1,name:"iPhone 17 Pro Max",price:45990000,originalPrice:47990000,category:"phone",image:"https://cdn.xtmobile.vn/vnt_upload/product/09_2025/thumbs/600_ip17pm_1.png",description:"Điện thoại thông minh cao cấp với chip A19 Pro"},
     {id:2,name:"iPhone 15 Pro Max",price:29990000,originalPrice:34990000,category:"phone",image:"https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-15-pro-max_3.png",description:"Điện thoại thông minh cao cấp với chip A17 Pro"},
-    {id:3,name:"Samsung Galaxy S25 Ultra ",price:26990000,originalPrice:31990000,category:"phone",image:"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/d/i/dien-thoai-samsung-galaxy-s25-ultra_1__3.png",description:"Flagship Android với S Pen và camera 200MP"},
-    {id:4,name:"ZTE Nubia Red Magic 10S Pro Plus",price:21650000,originalPrice:23990000,category:"phone",image:"https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/nubia_red_magic_10_pro_dat_diem_so_antutu_kich_tran_dinh_noc_bay_phap_phoi_1_073cfe39da.jpg",description:"Flagship Gaming mạnh nhất thế giới"},
-    {id:5,name:"MacBook Air M3",price:28990000,originalPrice:32990000,category:"laptop",image:"https://cdn2.cellphones.com.vn/x/media/catalog/product/m/a/macbook-air-m3-13-inch-2024_1__4.png",description:"Laptop siêu mỏng với chip M3 mạnh mẽ"},
-    {id:6,name:"Dell XPS 13",price:24990000,originalPrice:29990000,category:"laptop",image:"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=400&fit=crop&crop=center",description:"Laptop cao cấp cho doanh nhân"},
-    {id:7,name:"Samsung QLED 65 inch",price:18990000,originalPrice:24990000,category:"tv",image:"https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=400&h=400&fit=crop&crop=center",description:"Smart TV 4K với công nghệ QLED"},
-    {id:8,name:"LG OLED 55 inch",price:16990000,originalPrice:21990000,category:"tv",image:"https://images.unsplash.com/photo-1567690187548-f07b1d7bf5a9?w=400&h=400&fit=crop&crop=center",description:"TV OLED với chất lượng hình ảnh tuyệt vời"},
-    {id:9,name:"Tủ lạnh Samsung Inverter",price:12990000,originalPrice:15990000,category:"fridge",image:"https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=400&h=400&fit=crop&crop=center",description:"Tủ lạnh 2 cánh tiết kiệm điện"},
-    {id:10,name:"Tủ lạnh LG Side by Side",price:19990000,originalPrice:24990000,category:"fridge",image:"https://www.lg.com/content/dam/channel/wcms/vn/rf/lsi63blma/gallery/2010-1.jpg/jcr:content/renditions/thum-1600x1062.jpeg",description:"Tủ lạnh cửa đôi cao cấp"},
-    {id:11,name:"Lò vi sóng Panasonic",price:2990000,originalPrice:3990000,category:"microwave",image:"https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=400&h=400&fit=crop&crop=center",description:"Lò vi sóng 25L với nhiều chức năng"},
-    {id:12,name:"Lò vi sóng Sharp Inverter",price:3990000,originalPrice:4990000,category:"microwave",image:"https://images.unsplash.com/photo-1585659722983-3a675dabf23d?w=400&h=400&fit=crop&crop=center",description:"Lò vi sóng Inverter tiết kiệm điện"},
-    {id:13,name:"AirPods Pro 2",price:5990000,originalPrice:6990000,category:"accessories",image:"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/a/i/airpods_pro_2_sep24_pdp_image_position_2__vn-vi.jpg",description:"Tai nghe không dây chống ồn"},
-    {id:14,name:"Sạc dự phòng Anker 20000mAh",price:1290000,originalPrice:1590000,category:"accessories",image:"https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/p/i/pin-sac-du-phong-anker-prime-a1336-20000mah-200w_1_.png",description:"Pin sạc dự phòng dung lượng cao"}
+    {id:3,name:"Samsung S25 Ultra 12GB 256GB",price:26990000,originalPrice:31990000,category:"phone",image:"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/d/i/dien-thoai-samsung-galaxy-s25-ultra_1__3.png",description:"Flagship Android với S Pen và camera 200MP"},
+    {id:4,name:"ZTE Nubia Red Magic 10S Pro Plus",price:21650000,originalPrice:22990000,category:"phone",image:"https://cdn.tgdd.vn/Products/Images/42/297517/Thumbnails/Thum-600x600.jpg",description:"Điện thoại gaming với tản nhiệt tiên tiến"},
+    {id:5,name:"Dell XPS 15 Plus",price:54990000,originalPrice:57990000,category:"laptop",image:"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/d/e/dell-xps-15-plus.png",description:"Laptop cao cấp với màn hình 4K OLED"},
+    {id:6,name:"Laptop Acer Nitro 5",price:19990000,originalPrice:21990000,category:"laptop",image:"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/l/a/laptop-acer-nitro-5.png",description:"Laptop gaming mạnh mẽ với RTX 4070"},
+    {id:7,name:"Tivi Samsung QN90B 65 inch",price:24990000,originalPrice:26990000,category:"tv",image:"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/v/tivi-samsung-qn90b.png",description:"Tivi 4K HDR cao cấp"},
+    {id:8,name:"Tivi LG OLED C2",price:21990000,originalPrice:23990000,category:"tv",image:"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/v/tivi-lg-oled-c2.png",description:"Tivi OLED siêu mỏng"},
+    {id:9,name:"Tủ lạnh Samsung Inverter 505L",price:18490000,originalPrice:19990000,category:"fridge",image:"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/u/tu-lanh-samsung-inverter-505l.png",description:"Tủ lạnh 2 cánh, tiết kiệm điện"},
+    {id:10,name:"Tủ lạnh LG 600L",price:19990000,originalPrice:21990000,category:"fridge",image:"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/u/tu-lanh-lg-600l.png",description:"Tủ lạnh 2 cánh, dung tích lớn"},
+    {id:11,name:"Lò vi sóng Panasonic 32L",price:2890000,originalPrice:3290000,category:"microwave",image:"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/l/o/lo-vi-song-panasonic-32l.png",description:"Lò vi sóng cơ bản, đa chức năng"},
+    {id:12,name:"Tai nghe Sony WH-1000XM5",price:7490000,originalPrice:8990000,category:"accessories",image:"https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/t/a/tai-nghe-sony-wh1000xm5.png",description:"Tai nghe chống ồn cao cấp"}
 ];
 
-let cart = [];
+// Render sản phẩm
+const productGrid = document.getElementById('productGrid');
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-function formatCurrency(amount){ return amount.toLocaleString('vi-VN')+'đ'; }
-
-function renderProducts(productsToRender=products){
-    const grid=document.getElementById('productGrid');
-    grid.innerHTML='';
-    productsToRender.forEach(p=>{
-        const discount=Math.round((1-p.price/p.originalPrice)*100);
-        const card=document.createElement('div');
-        card.className='product-card bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300';
-        card.innerHTML=`
-            <div class="relative">
-                <div class="h-48 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center overflow-hidden">
-                    <img src="${p.image}" alt="${p.name}" class="w-full h-full object-contain hover:scale-105 transition-transform duration-300"
-                        onerror="this.src=''; this.alt='Hình ảnh không tải'; this.style.display='none'; this.parentElement.innerHTML='<div class=\\'text-6xl text-gray-400\\'>📦</div>';"/>
-                </div>
-                <div class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-bold">
-                    -${discount}%
-                </div>
-            </div>
-            <div class="p-4">
-                <h3 class="font-bold text-lg mb-2 text-gray-800">${p.name}</h3>
-                <p class="text-gray-600 text-sm mb-3">${p.description}</p>
-                <div class="flex items-center justify-between mb-4">
-                    <div>
-                        <span class="text-red-500 font-bold text-xl">${formatCurrency(p.price)}</span>
-                        <span class="text-gray-400 line-through text-sm ml-2">${formatCurrency(p.originalPrice)}</span>
-                    </div>
-                </div>
-                <div class="flex space-x-2" style="font-size: 11pt">
-                    <button onclick="addToCart(${p.id})" class="flex-1 bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-all font-medium">
-                        <i class="fas fa-cart-plus mr-2"></i>Thêm vào giỏ
-                    </button>
-                    <button onclick="buyNow(${p.id})" class="flex-1 bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition-all font-medium">
-                        Mua ngay
-                    </button>
-                </div>
-            </div>
+function renderProducts(list){
+    productGrid.innerHTML = '';
+    if(list.length === 0){
+        productGrid.innerHTML = '<p class="text-center text-gray-500 col-span-full py-8">Không có sản phẩm</p>';
+        return;
+    }
+    list.forEach(p => {
+        const div = document.createElement('div');
+        div.className = 'product-card bg-white rounded-lg p-4 shadow-md flex flex-col';
+        div.innerHTML = `
+            <img src="${p.image}" alt="${p.name}" class="w-full h-48 object-contain mb-4">
+            <h3 class="font-bold text-lg text-gray-800 mb-2">${p.name}</h3>
+            <p class="text-red-500 font-semibold mb-2">${p.price.toLocaleString('vi-VN')}đ <span class="line-through text-gray-400">${p.originalPrice.toLocaleString('vi-VN')}đ</span></p>
+            <p class="text-gray-600 mb-4 text-sm flex-1">${p.description}</p>
+            <button onclick="addToCart(${p.id})" class="bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition-all">Thêm vào giỏ</button>
         `;
-        grid.appendChild(card);
+        productGrid.appendChild(div);
     });
 }
 
+// Lọc sản phẩm
 function filterProducts(category){
-    const filtered=category==='all'?products:products.filter(p=>p.category===category);
-    renderProducts(filtered);
-    document.querySelectorAll('.nav-item').forEach(item=>item.classList.remove('active','bg-green-100'));
-    event.target.classList.add('active','bg-green-100');
+    document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
+    document.querySelector(`.nav-item[onclick="filterProducts('${category}')"]`)?.classList.add('active');
+    if(category === 'all') renderProducts(products);
+    else renderProducts(products.filter(p => p.category === category));
 }
 
+// Giỏ hàng
 function addToCart(id){
-    const p = products.find(x => x.id === id);
-    const item = cart.find(x => x.id === id);
-    if(item) item.quantity += 1;
-    else cart.push({...p, quantity: 1});
+    const item = products.find(p => p.id === id);
+    const exist = cart.find(c => c.id === id);
+    if(exist) exist.quantity++;
+    else cart.push({...item, quantity:1});
+    localStorage.setItem('cart', JSON.stringify(cart));
     updateCartUI();
-
-    // Tạo popup
-    const popup = document.createElement('div');
-    popup.textContent = "Đã thêm sản phẩm vào giỏ hàng ✅";
-    popup.style.position = "fixed";
-    popup.style.top = "20px";
-    popup.style.right = "20px";
-    popup.style.backgroundColor = "#22c55e"; // xanh lá
-    popup.style.color = "#fff";
-    popup.style.padding = "12px 20px";
-    popup.style.borderRadius = "8px";
-    popup.style.boxShadow = "0 4px 6px rgba(0,0,0,0.2)";
-    popup.style.zIndex = 1000;
-    popup.style.opacity = 0;
-    popup.style.transition = "opacity 0.3s ease";
-
-    document.body.appendChild(popup);
-
-    // Hiện popup
-    setTimeout(() => { popup.style.opacity = 1; }, 50);
-
-    // Ẩn sau 1.5s
-    setTimeout(() => {
-        popup.style.opacity = 0;
-        setTimeout(() => document.body.removeChild(popup), 300);
-    }, 1500);
 }
-
-
-function buyNow(id){ addToCart(id); toggleCart(); }
 
 function updateCartUI(){
-    const cartCount=document.getElementById('cartCount');
-    const cartItems=document.getElementById('cartItems');
-    const cartTotal=document.getElementById('cartTotal');
-    const totalItems=cart.reduce((sum,i)=>sum+i.quantity,0);
-    const totalPrice=cart.reduce((sum,i)=>sum+i.price*i.quantity,0);
-    cartCount.textContent=totalItems;
-    cartTotal.textContent=formatCurrency(totalPrice);
-    if(cart.length===0) cartItems.innerHTML='<p class="text-gray-500 text-center py-8">Giỏ hàng trống</p>';
-    else cartItems.innerHTML=cart.map(item=>`
-        <div class="flex items-center justify-between p-4 border rounded-lg">
-            <div class="flex items-center space-x-4">
-                <div class="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
-                    <img src="${item.image}" alt="${item.name}" class="w-full h-full object-contain"
-                        onerror="this.src=''; this.alt='Hình ảnh không tải'; this.style.display='none'; this.parentElement.innerHTML='<div class=\\'text-2xl text-gray-400\\'>📦</div>';"/>
-                </div>
-                <div>
-                    <h4 class="font-medium">${item.name}</h4>
-                    <p class="text-red-500 font-bold">${formatCurrency(item.price)}</p>
-                </div>
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    const cartCount = document.getElementById('cartCount');
+    if(cart.length === 0){
+        cartItems.innerHTML = '<p class="text-gray-500 text-center py-8">Giỏ hàng trống</p>';
+        cartTotal.textContent = '0đ';
+        cartCount.textContent = '0';
+        return;
+    }
+    cartItems.innerHTML = '';
+    let total = 0;
+    cart.forEach(p => {
+        total += p.price * p.quantity;
+        const div = document.createElement('div');
+        div.className = 'flex justify-between items-center border-b py-2';
+        div.innerHTML = `
+            <div>
+                <p class="font-semibold">${p.name}</p>
+                <p class="text-gray-500 text-sm">${p.quantity} x ${p.price.toLocaleString('vi-VN')}đ</p>
             </div>
-            <div class="flex items-center space-x-2">
-                <button onclick="updateQuantity(${item.id},-1)" class="bg-gray-200 hover:bg-gray-300 w-8 h-8 rounded-full flex items-center justify-center"><i class="fas fa-minus text-sm"></i></button>
-                <span class="w-8 text-center">${item.quantity}</span>
-                <button onclick="updateQuantity(${item.id},1)" class="bg-gray-200 hover:bg-gray-300 w-8 h-8 rounded-full flex items-center justify-center"><i class="fas fa-plus text-sm"></i></button>
-                <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-700 ml-2"><i class="fas fa-trash"></i></button>
+            <div>
+                <button onclick="removeFromCart(${p.id})" class="text-red-500 hover:text-red-700"><i class="fas fa-trash"></i></button>
             </div>
-        </div>
-    `).join('');
+        `;
+        cartItems.appendChild(div);
+    });
+    cartTotal.textContent = total.toLocaleString('vi-VN') + 'đ';
+    cartCount.textContent = cart.reduce((sum,c)=>sum+c.quantity,0);
 }
 
-function updateQuantity(id,change){
-    const item=cart.find(x=>x.id===id);
-    if(item){ item.quantity+=change; if(item.quantity<=0) removeFromCart(id); else updateCartUI(); }
+function removeFromCart(id){
+    cart = cart.filter(c => c.id !== id);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartUI();
 }
 
-function removeFromCart(id){ cart=cart.filter(x=>x.id!==id); updateCartUI(); }
-
+// Popup
 function toggleLogin(){ document.getElementById('loginModal').classList.toggle('hidden'); }
 function toggleCart(){ document.getElementById('cartModal').classList.toggle('hidden'); }
-
-function openCheckout(){
-    if(cart.length===0){ alert('Giỏ hàng trống!'); return; }
-    toggleCart();
-    document.getElementById('checkoutPopup').style.display='block';
+function openCheckout(){ 
+    if(cart.length === 0){ alert('Giỏ hàng trống!'); return; }
+    document.getElementById('checkoutPopup').style.display = 'block';
 }
-function closeCheckout(){ document.getElementById('checkoutPopup').style.display='none'; }
+function closeCheckout(){ document.getElementById('checkoutPopup').style.display = 'none'; }
 
-document.getElementById('checkoutForm').addEventListener('submit',function(e){
+// Xử lý gửi bot Telegram
+document.getElementById('checkoutForm').addEventListener('submit', function(e){
     e.preventDefault();
-    let data=new FormData(this);
-    let msg=`Đơn hàng mới:\nHọ tên: ${data.get('name')}\nSĐT: ${data.get('phone')}\nĐịa chỉ: ${data.get('address')}\nThanh toán: ${data.get('payment')}\nSản phẩm:\n`+
-        cart.map(p=>`- ${p.name} x${p.quantity}`).join('\n');
-    fetch('https://api.telegram.org/bot8442471639:AAGDomAwO9dEFBxgjx6tM4kprj0OzCyY1rw/sendMessage?chat_id=5979711401&text=' + encodeURIComponent(msg))
-    fetch('https://api.telegram.org/bot8442471639:AAGDomAwO9dEFBxgjx6tM4kprj0OzCyY1rw/sendMessage?chat_id=2133228445&text=' + encodeURIComponent(msg))       
-        .then(res=>res.json())
-        .then(()=>{ alert('Đặt hàng thành công!'); cart=[]; updateCartUI(); closeCheckout(); });
-});
+    const data = new FormData(this);
 
-// Search
-document.getElementById('searchInput').addEventListener('input',function(e){
-    let term=e.target.value.toLowerCase();
-    renderProducts(products.filter(p=>p.name.toLowerCase().includes(term) || p.description.toLowerCase().includes(term)));
-});
+    // Mã đơn hàng ngẫu nhiên 9-10 ký tự
+    const generateOrderCode = length => {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let code = '';
+        for(let i=0;i<length;i++) code += chars.charAt(Math.floor(Math.random()*chars.length));
+        return code;
+    }
+    const orderCode = generateOrderCode(Math.floor(Math.random()*2)+9);
 
-document.addEventListener('DOMContentLoaded',()=>{
-    renderProducts();
+    // Tổng tiền
+    const totalPrice = cart.reduce((sum,p)=>sum+p.price*p.quantity,0);
+
+    // Nội dung tin nhắn
+    const message = `Đơn hàng mới: #${orderCode}\n` +
+                    `Họ tên: ${data.get('name')}\n` +
+                    `SĐT: ${data.get('phone')}\n` +
+                    `Địa chỉ: ${data.get('address')}\n` +
+                    `Thanh toán: ${data.get('payment')}\n` +
+                    `Tổng tiền: ${totalPrice.toLocaleString('vi-VN')}đ\n` +
+                    `Sản phẩm:\n` +
+                    cart.map(p=>`- ${p.name} x${p.quantity}`).join('\n');
+
+    const BOT_TOKEN = "8442471639:AAGDomAwO9dEFBxgjx6tM4kprj0OzCyY1rw";
+    const CHAT_IDS = ["5979711401","2133228445"];
+
+    Promise.all(
+        CHAT_IDS.map(chatId =>
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{
+                method:"POST",
+                headers: {"Content-Type":"application/json"},
+                body: JSON.stringify({chat_id:chatId,text:message})
+            })
+        )
+    )
+   .then(()=>{
+    showSuccessPopup();        // Hiển thị popup thay cho alert
+    cart = [];
+    localStorage.removeItem('cart');
     updateCartUI();
+    closeCheckout();
+    this.reset();
+})
+
+    .catch(err=>{
+        alert("Có lỗi xảy ra, vui lòng thử lại!");
+        console.error(err);
+    });
 });
 
-// Close modals by clicking outside
-window.addEventListener('click',function(e){
-    if(e.target.id==='loginModal') toggleLogin();
-    if(e.target.id==='cartModal') toggleCart();
-    if(e.target.id==='checkoutPopup') closeCheckout();
-});
+// Khởi tạo
+renderProducts(products);
+updateCartUI();
+    
+function showSuccessPopup() {
+  const popup = document.getElementById("successPopup");
+  popup.style.display = "block";
+  setTimeout(() => {
+    popup.style.display = "none";
+  }, 2000); // 2 giây
+}
+
+    
 </script>
+    <!-- Popup thông báo thành công -->
+<div id="successPopup" class="popup-success">
+  <div class="popup-success-content">
+    <span id="closeSuccessPopup" class="close">&times;</span>
+    <h2>✅ Đặt hàng thành công!</h2>
+    <p>Chúng tôi sẽ liên hệ bạn sớm.</p>
+  </div>
+</div>
+
+<style>
+.popup-success {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  animation: fadeIn 0.3s;
+}
+
+.popup-success-content {
+  background: #fff;
+  margin: 15% auto;
+  padding: 25px 30px;
+  border-radius: 12px;
+  width: 350px;
+  max-width: 90%;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.popup-success-content h2 {
+  color: #28a745;
+  margin-bottom: 10px;
+}
+
+.popup-success-content p {
+  font-size: 16px;
+  color: #333;
+}
+
+.close {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+</style>
+
 </body>
 </html>
-
-
-
-
-
-
-
