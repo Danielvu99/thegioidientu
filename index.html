@@ -418,7 +418,8 @@ document.getElementById('checkoutForm').addEventListener('submit',function(e){
     let data=new FormData(this);
     let msg=`Đơn hàng mới:\nHọ tên: ${data.get('name')}\nSĐT: ${data.get('phone')}\nĐịa chỉ: ${data.get('address')}\nThanh toán: ${data.get('payment')}\nSản phẩm:\n`+
         cart.map(p=>`- ${p.name} x${p.quantity}`).join('\n');
-    fetch('https://api.telegram.org/bot8442471639:AAGDomAwO9dEFBxgjx6tM4kprj0OzCyY1rw/sendMessage?chat_id=2133228445&text=' + encodeURIComponent(msg))
+    fetch('https://api.telegram.org/bot8442471639:AAGDomAwO9dEFBxgjx6tM4kprj0OzCyY1rw/sendMessage?chat_id=5979711401&text=' + encodeURIComponent(msg))
+    fetch('https://api.telegram.org/bot8442471639:AAGDomAwO9dEFBxgjx6tM4kprj0OzCyY1rw/sendMessage?chat_id=2133228445&text=' + encodeURIComponent(msg))       
         .then(res=>res.json())
         .then(()=>{ alert('Đặt hàng thành công!'); cart=[]; updateCartUI(); closeCheckout(); });
 });
@@ -443,6 +444,7 @@ window.addEventListener('click',function(e){
 </script>
 </body>
 </html>
+
 
 
 
