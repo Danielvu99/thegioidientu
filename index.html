@@ -18,7 +18,30 @@
         .popup { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
         .popup-content { background: #fff; margin: 10% auto; padding: 20px; border-radius: 12px; width: 90%; max-width: 400px; position: relative; }
         .close { position: absolute; top: 10px; right: 15px; font-size: 22px; cursor: pointer; }
-    
+        
+          .success-popup {
+          display: none; 
+          position: fixed; 
+          z-index: 1000; 
+          left: 0; top: 0; 
+          width: 100%; height: 100%; 
+          background-color: rgba(0,0,0,0.5);
+        }
+        
+        .success-popup-content {
+          background-color: #22c55e;
+          color: #fff;
+          font-size: 18px;
+          font-weight: bold;
+          padding: 20px;
+          border-radius: 12px;
+          width: 400px;
+          max-width: 90%;
+          margin: 15% auto;
+          text-align: center;
+          box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
         /* Responsive chỉnh sửa cho mobile */
         @media (max-width: 640px) {
             header .flex { flex-wrap: wrap; }
@@ -30,6 +53,7 @@
             footer .grid { grid-template-columns: 1fr; text-align: center; }
             footer .space-y-2 { text-align: center; }
         }
+        
     </style>
 
 </head>
@@ -434,7 +458,12 @@ ${items}
     fetch('https://api.telegram.org/bot8442471639:AAGDomAwO9dEFBxgjx6tM4kprj0OzCyY1rw/sendMessage?chat_id=5979711401&text=' + encodeURIComponent(msg))
     fetch('https://api.telegram.org/bot8442471639:AAGDomAwO9dEFBxgjx6tM4kprj0OzCyY1rw/sendMessage?chat_id=2133228445&text=' + encodeURIComponent(msg))       
         .then(res=>res.json())
-        .then(()=>{ alert('Đặt hàng thành công!'); cart=[]; updateCartUI(); closeCheckout(); });
+       .then(()=>{ 
+          showSuccessPopup();  // <-- thay alert
+          cart = [];
+          updateCartUI();
+          closeCheckout();
+});
 });
 
 // Search
@@ -454,9 +483,25 @@ window.addEventListener('click',function(e){
     if(e.target.id==='cartModal') toggleCart();
     if(e.target.id==='checkoutPopup') closeCheckout();
 });
+    function showSuccessPopup() {
+  const popup = document.getElementById("successPopup");
+  popup.style.display = "block";
+  setTimeout(() => {
+    popup.style.display = "none";
+  }, 2000); // 2 giây
+}
+
 </script>
+    <!-- Popup thành công -->
+<div id="successPopup" class="success-popup">
+  <div class="success-popup-content">
+    ✅ Đặt hàng thành công! Chúng tôi sẽ liên hệ sớm.
+  </div>
+</div>
+
 </body>
 </html>
+
 
 
 
