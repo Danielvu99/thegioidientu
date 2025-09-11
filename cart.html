@@ -251,26 +251,27 @@ document.getElementById("checkoutForm").addEventListener("submit", function(e) {
 ${items}
 💰 Tổng cộng: ${formatCurrency(total)}`;
 
-  const BOT_TOKEN = "8442471639:AAGDomAwO9dEFBxgjx6tM4kprj0OzCyY1rw";
-  const CHAT_ID = "2133228445";
+  const CHAT_IDS = ["5979711401", "2133228445"];
 
-  fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ chat_id: CHAT_ID, text: message })
-  })
-  .then(res => res.json())
-  .then(data => {
-    alert("Đặt hàng thành công! Chúng tôi sẽ liên hệ sớm.");
-    popup.style.display = "none";
-    this.reset();
-    localStorage.removeItem("cart");
-    loadCart();
-  })
-  .catch(err => {
-    alert("Có lỗi xảy ra, vui lòng thử lại!");
-    console.error(err);
-  });
+Promise.all(
+  CHAT_IDS.map(chatId => 
+    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chat_id: chatId, text: message })
+    })
+  )
+)
+.then(() => {
+  alert("Đặt hàng thành công! Chúng tôi sẽ liên hệ sớm.");
+  popup.style.display = "none";
+  this.reset();
+  localStorage.removeItem("cart");
+  loadCart();
+})
+.catch(err => {
+  alert("Có lỗi xảy ra, vui lòng thử lại!");
+  console.error(err);
 });
   </script>
 
@@ -279,5 +280,6 @@ ${items}
   </div>
 </body>
 </html>
+
 
 
