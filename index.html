@@ -526,8 +526,8 @@ function closeCheckout(){ document.getElementById('checkoutPopup').style.display
 document.getElementById('checkoutForm').addEventListener('submit',function(e){
     e.preventDefault();
     let data=new FormData(this);
-   // Tạo mã đơn hàng ngẫu nhiên 15 ký tự
-const orderCode = Math.random().toString(36).substring(2, 17).toUpperCase();
+   // Tạo mã đơn hàng ngẫu nhiên 20 ký tự
+const orderCode = Math.random().toString(36).substring(2, 22).toUpperCase();
 
 const items = cart.map(p => `- ${p.name} x${p.quantity} = ${formatCurrency(p.price * p.quantity)}`).join("\n");
 const total = cart.reduce((sum, p) => sum + p.price * p.quantity, 0);
@@ -619,6 +619,7 @@ window.addEventListener('click',function(e){
 </nav>
 </body>
 </html>
+
 
 
 
