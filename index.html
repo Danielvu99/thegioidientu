@@ -97,6 +97,47 @@
         color: #aaa;
         text-decoration: line-through;
       }
+/* Ẩn trên màn lớn */
+.mobile-bottom-nav {
+  display: none;
+}
+
+/* Chỉ hiển thị khi màn hình nhỏ hơn 768px */
+@media (max-width: 768px) {
+  .mobile-bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+    padding: 6px 0;
+    z-index: 999;
+  }
+
+  .mobile-bottom-nav .nav-item {
+    flex: 1;
+    text-align: center;
+    font-size: 12px;
+    color: #555;
+    text-decoration: none;
+  }
+
+  .mobile-bottom-nav .nav-item span {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 2px;
+  }
+
+  .mobile-bottom-nav .nav-item.active {
+    color: #e60000; /* màu active (đỏ như CellphoneS) */
+    font-weight: bold;
+  }
+}
 
     </style>
 
@@ -542,9 +583,28 @@ window.addEventListener('click',function(e){
     ✅ Đặt hàng thành công! Chúng tôi sẽ liên hệ sớm.
   </div>
 </div>
-
+<!-- Thanh điều hướng dưới màn hình -->
+<nav class="mobile-bottom-nav">
+  <a href="#" class="nav-item active">
+    <span>🏠</span>
+    <p>Trang chủ</p>
+  </a>
+  <a href="#" class="nav-item">
+    <span>📂</span>
+    <p>Danh mục</p>
+  </a>
+  <a href="#" class="nav-item">
+    <span>🏬</span>
+    <p>Cửa hàng</p>
+  </a>
+  <a href="#" class="nav-item">
+    <span>👤</span>
+    <p>Tài khoản</p>
+  </a>
+</nav>
 </body>
 </html>
+
 
 
 
