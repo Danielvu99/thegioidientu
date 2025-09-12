@@ -233,18 +233,28 @@ document.getElementById("checkoutForm").addEventListener("submit", function(e) {
   let items = cart.map(item => `- ${item.name} x${item.quantity} = ${formatCurrency(item.price*item.quantity)}`).join("\n");
   const orderTime = new Date().toLocaleString("vi-VN");
 
-  const message = `📦 Đơn hàng mới
-🆔 Mã đơn: ${orderCode}
-⏰ Thời gian: ${orderTime}
-👤 Họ tên: ${name}
-📞 SĐT: ${phone}
-🏠 Địa chỉ: ${address}
-💳 Thanh toán: ${payment}
+  function formatDateTime(date) {
+  const d = new Date(date);
+  const day = String(d.getDate()).padStart(2, '0');
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const year = d.getFullYear();
+  const hours = String(d.getHours()).padStart(2, '0');
+  const minutes = String(d.getMinutes()).padStart(2, '0');
+  return `${hours}:${minutes} ${day}/${month}/${year}`;
+}
+
+const orderTime = formatDateTime(new Date());
+
+const msg = `🕒 Thời gian đặt hàng: ${orderTime}
+📦 Đơn hàng mới #${orderCode}
+👤 Họ tên: ${data.get('name')}
+📞 SĐT: ${data.get('phone')}
+🏠 Địa chỉ: ${data.get('address')}
+💳 Thanh toán: ${data.get('payment')}
 🛒 Sản phẩm:
 ${items}
-thời gian: ${time} - ${date}
-🚚 Phí ship: 20,000₫
 💰 Tổng cộng: ${formatCurrency(total)}`;
+
 
   Promise.all(
     CHAT_IDS.map(chatId => 
@@ -274,6 +284,7 @@ thời gian: ${time} - ${date}
 </div>
 </body>
 </html>
+
 
 
 
