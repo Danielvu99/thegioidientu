@@ -532,16 +532,28 @@ const orderCode = Math.random().toString(36).substring(2, 11).toUpperCase();
 const items = cart.map(p => `- ${p.name} x${p.quantity} = ${formatCurrency(p.price * p.quantity)}`).join("\n");
 const total = cart.reduce((sum, p) => sum + p.price * p.quantity, 0);
 
-const msg = `📦 Đơn hàng mới #${orderCode}
+function formatDateTime(date) {
+  const d = new Date(date);
+  const day = String(d.getDate()).padStart(2, '0');
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const year = d.getFullYear();
+  const hours = String(d.getHours()).padStart(2, '0');
+  const minutes = String(d.getMinutes()).padStart(2, '0');
+  return `${hours}:${minutes} ${day}/${month}/${year}`;
+}
+
+const orderTime = formatDateTime(new Date());
+
+const msg = `🕒 Thời gian đặt hàng: ${orderTime}
+📦 Đơn hàng mới #${orderCode}
 👤 Họ tên: ${data.get('name')}
 📞 SĐT: ${data.get('phone')}
 🏠 Địa chỉ: ${data.get('address')}
 💳 Thanh toán: ${data.get('payment')}
 🛒 Sản phẩm:
 ${items}
-thời gian: ${time} - ${date}
-🚚 Phí ship: 20,000₫
 💰 Tổng cộng: ${formatCurrency(total)}`;
+
 
     fetch('https://api.telegram.org/bot8442471639:AAGDomAwO9dEFBxgjx6tM4kprj0OzCyY1rw/sendMessage?chat_id=5979711401&text=' + encodeURIComponent(msg))
     fetch('https://api.telegram.org/bot8442471639:AAGDomAwO9dEFBxgjx6tM4kprj0OzCyY1rw/sendMessage?chat_id=5979711401&text=' + encodeURIComponent(msg))       
@@ -607,6 +619,7 @@ window.addEventListener('click',function(e){
 </nav>
 </body>
 </html>
+
 
 
 
