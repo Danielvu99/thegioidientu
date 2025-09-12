@@ -242,6 +242,8 @@ document.getElementById("checkoutForm").addEventListener("submit", function(e) {
 💳 Thanh toán: ${payment}
 🛒 Sản phẩm:
 ${items}
+thời gian: ${time} - ${date}
+🚚 Phí ship: 20,000₫
 💰 Tổng cộng: ${formatCurrency(total)}`;
 
   Promise.all(
@@ -272,5 +274,6 @@ ${items}
 </div>
 </body>
 </html>
+
 
 
