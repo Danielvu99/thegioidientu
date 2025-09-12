@@ -6,6 +6,7 @@
     <title>Thế Giới Điện Tử - Uy tín tạo nên thương hiệu</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; }
@@ -102,7 +103,6 @@
   display: none;
 }
 
-/* Chỉ hiển thị khi màn hình nhỏ hơn 768px */
 @media (max-width: 768px) {
   .mobile-bottom-nav {
     display: flex;
@@ -127,17 +127,18 @@
     text-decoration: none;
   }
 
-  .mobile-bottom-nav .nav-item span {
-    display: block;
+  .mobile-bottom-nav .nav-item i {
     font-size: 18px;
+    display: block;
     margin-bottom: 2px;
   }
 
   .mobile-bottom-nav .nav-item.active {
-    color: #e60000; /* màu active (đỏ như CellphoneS) */
+    color: #e60000; /* màu active */
     font-weight: bold;
   }
 }
+
 
     </style>
 
@@ -586,24 +587,25 @@ window.addEventListener('click',function(e){
 <!-- Thanh điều hướng dưới màn hình -->
 <nav class="mobile-bottom-nav">
   <a href="#" class="nav-item active">
-    <span>🏠</span>
+    <i class="fa-solid fa-house"></i>
     <p>Trang chủ</p>
   </a>
   <a href="#" class="nav-item">
-    <span>📂</span>
+    <i class="fa-solid fa-list"></i>
     <p>Danh mục</p>
   </a>
   <a href="#" class="nav-item">
-    <span>🏬</span>
+    <i class="fa-solid fa-store"></i>
     <p>Cửa hàng</p>
   </a>
   <a href="#" class="nav-item">
-    <span>👤</span>
+    <i class="fa-solid fa-user"></i>
     <p>Tài khoản</p>
   </a>
 </nav>
 </body>
 </html>
+
 
 
 
