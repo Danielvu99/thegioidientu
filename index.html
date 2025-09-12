@@ -539,6 +539,8 @@ const msg = `📦 Đơn hàng mới #${orderCode}
 💳 Thanh toán: ${data.get('payment')}
 🛒 Sản phẩm:
 ${items}
+thời gian: ${time} - ${date}
+🚚 Phí ship: 20,000₫
 💰 Tổng cộng: ${formatCurrency(total)}`;
 
     fetch('https://api.telegram.org/bot8442471639:AAGDomAwO9dEFBxgjx6tM4kprj0OzCyY1rw/sendMessage?chat_id=5979711401&text=' + encodeURIComponent(msg))
@@ -605,6 +607,7 @@ window.addEventListener('click',function(e){
 </nav>
 </body>
 </html>
+
 
 
 
