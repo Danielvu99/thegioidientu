@@ -119,16 +119,19 @@
     z-index: 999;
   }
     .flex.space-x-2 {
-        flex-direction: column;  /* Chuyển thành dọc */
+        flex-direction: column;   /* Đổi từ ngang -> dọc */
         gap: 8px;
-        width: 100%;
+        width: 100%;              /* Chiếm toàn bộ chiều ngang container */
     }
 
     .flex.space-x-2 button {
-        width: 100%;             /* Mỗi nút rộng 100% */
-        display: block;          /* Đảm bảo block element */
-        text-align: center;      /* Canh chữ giữa */
-        white-space: nowrap;     /* Không cho chữ xuống dòng */
+        width: 100%;              /* Mỗi nút chiếm hết chiều ngang */
+        display: flex;            /* Flex để căn giữa text */
+        justify-content: center;  /* Canh giữa ngang */
+        align-items: center;      /* Canh giữa dọc */
+        font-size: 16px;          /* Tùy chỉnh kích thước chữ */
+        padding: 12px 0;          /* Cho nút cao thoáng hơn */
+        border-radius: 8px;       /* Bo góc cho đẹp */
     }
 
   .mobile-bottom-nav .nav-item {
@@ -632,6 +635,7 @@ window.addEventListener('click',function(e){
 </nav>
 </body>
 </html>
+
 
 
 
