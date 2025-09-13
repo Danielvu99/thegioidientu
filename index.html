@@ -118,6 +118,15 @@
     padding: 6px 0;
     z-index: 999;
   }
+    .flex.space-x-2 {
+        flex-direction: column;      /* Đổi từ ngang sang dọc */
+        gap: 8px;                    /* Khoảng cách giữa các nút */
+        width: 100%;                 /* Cho full chiều ngang */
+    }
+
+    .flex.space-x-2 button {
+        width: 100%;                 /* Mỗi nút chiếm 100% */
+    }
 
   .mobile-bottom-nav .nav-item {
     flex: 1;
@@ -620,6 +629,7 @@ window.addEventListener('click',function(e){
 </nav>
 </body>
 </html>
+
 
 
 
