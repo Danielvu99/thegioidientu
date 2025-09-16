@@ -14,12 +14,15 @@
       margin: 40px auto;
     }
     .product-card {
+      display: block; /* để toàn bộ card click được */
       background: #fff;
       padding: 15px;
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       text-align: center;
       transition: 0.3s;
+      text-decoration: none;  /* bỏ gạch chân */
+      color: inherit;         /* giữ màu chữ */
     }
     .product-card:hover { transform: translateY(-5px); }
     .product-card img {
@@ -30,14 +33,6 @@
     }
     .product-card h3 { margin: 15px 0 10px; font-size: 18px; }
     .product-card p { margin-bottom: 10px; color: #e60000; font-weight: bold; }
-    .product-card a {
-      display: inline-block;
-      padding: 8px 15px;
-      background: #007bff;
-      color: #fff;
-      border-radius: 6px;
-      text-decoration: none;
-    }
   </style>
 </head>
 <body>
@@ -50,13 +45,13 @@
   <script>
     const list = document.getElementById("product-list");
     products.forEach(p => {
-      const card = document.createElement("div");
+      const card = document.createElement("a");
+      card.href = `product-detail.html?id=${p.id}`;
       card.className = "product-card";
       card.innerHTML = `
         <img src="${p.image}" alt="${p.name}">
         <h3>${p.name}</h3>
         <p>${p.price.toLocaleString()} VNĐ</p>
-        <a href="product-detail.html?id=${p.id}">Xem chi tiết</a>
       `;
       list.appendChild(card);
     });
