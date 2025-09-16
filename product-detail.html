@@ -23,6 +23,7 @@
     .product-info { flex: 1; }
     .product-info h1 { font-size: 28px; margin-bottom: 15px; }
     .price { font-size: 22px; font-weight: bold; color: #e60000; margin-bottom: 20px; }
+    .old-price { text-decoration: line-through; color: gray; margin-left: 10px; }
     .buy-buttons button {
       padding: 12px 20px;
       font-size: 16px;
@@ -43,34 +44,31 @@
 
   <div id="product-detail" class="product-detail"></div>
 
+  <script src="products.js"></script>
   <script>
     const params = new URLSearchParams(window.location.search);
-    const productId = params.get("id");
+    const productId = parseInt(params.get("id"));
 
-    fetch("products.json")
-      .then(res => res.json())
-      .then(products => {
-        const product = products.find(p => p.id === productId);
-        if (!product) {
-          document.getElementById("product-detail").innerHTML = "<p>Không tìm thấy sản phẩm.</p>";
-          return;
-        }
-
-        document.getElementById("product-detail").innerHTML = `
-          <img src="${product.image}" alt="${product.name}">
-          <div class="product-info">
-            <h1>${product.name}</h1>
-            <p class="price">${product.price}</p>
-            <p>${product.description}</p>
-            <h3>Thông số kỹ thuật:</h3>
-            <ul>${product.specs.map(s => `<li>${s}</li>`).join("")}</ul>
-            <div class="buy-buttons">
-              <button class="btn-buy">Mua ngay</button>
-              <button class="btn-cart">Thêm vào giỏ hàng</button>
-            </div>
+    const product = products.find(p => p.id === productId);
+    if (!product) {
+      document.getElementById("product-detail").innerHTML = "<p>Không tìm thấy sản phẩm.</p>";
+    } else {
+      document.getElementById("product-detail").innerHTML = `
+        <img src="${product.image}" alt="${product.name}">
+        <div class="product-info">
+          <h1>${product.name}</h1>
+          <p class="price">
+            ${product.price.toLocaleString()} VNĐ
+            <span class="old-price">${product.originalPrice.toLocaleString()} VNĐ</span>
+          </p>
+          <p>${product.description}</p>
+          <div class="buy-buttons">
+            <button class="btn-buy">Mua ngay</button>
+            <button class="btn-cart">Thêm vào giỏ hàng</button>
           </div>
-        `;
-      });
+        </div>
+      `;
+    }
   </script>
 
 </body>
