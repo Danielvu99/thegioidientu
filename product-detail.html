@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi tiết sản phẩm</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .product-detail {
+      max-width: 1000px;
+      margin: 50px auto;
+      padding: 20px;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      display: flex;
+      gap: 30px;
+    }
+    .product-detail img {
+      width: 400px;
+      border-radius: 12px;
+    }
+    .product-info { flex: 1; }
+    .product-info h1 { font-size: 28px; margin-bottom: 15px; }
+    .price { font-size: 22px; font-weight: bold; color: #e60000; margin-bottom: 20px; }
+    .buy-buttons button {
+      padding: 12px 20px;
+      font-size: 16px;
+      margin-right: 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .btn-buy { background: #28a745; color: #fff; }
+    .btn-cart { background: #007bff; color: #fff; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h2 style="text-align:center; margin:20px;">Chi tiết sản phẩm</h2>
+  </header>
+
+  <div id="product-detail" class="product-detail"></div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get("id");
+
+    fetch("products.json")
+      .then(res => res.json())
+      .then(products => {
+        const product = products.find(p => p.id === productId);
+        if (!product) {
+          document.getElementById("product-detail").innerHTML = "<p>Không tìm thấy sản phẩm.</p>";
+          return;
+        }
+
+        document.getElementById("product-detail").innerHTML = `
+          <img src="${product.image}" alt="${product.name}">
+          <div class="product-info">
+            <h1>${product.name}</h1>
+            <p class="price">${product.price}</p>
+            <p>${product.description}</p>
+            <h3>Thông số kỹ thuật:</h3>
+            <ul>${product.specs.map(s => `<li>${s}</li>`).join("")}</ul>
+            <div class="buy-buttons">
+              <button class="btn-buy">Mua ngay</button>
+              <button class="btn-cart">Thêm vào giỏ hàng</button>
+            </div>
+          </div>
+        `;
+      });
+  </script>
+
+</body>
+</html>
