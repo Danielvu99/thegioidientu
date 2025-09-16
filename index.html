@@ -155,6 +155,26 @@
   }
 }
 
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 40px auto;
+}
+
+.product-card {
+  background: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: 0.3s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
 
     </style>
 
@@ -257,7 +277,7 @@
             <div id="productGrid" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
         </div>
     </section>
-
+<div id="featured-products" class="product-list"></div>
     <!-- Login Modal -->
     <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
         <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
@@ -614,8 +634,27 @@ window.addEventListener('click',function(e){
     <p>Tài khoản</p>
   </a>
 </nav>
+    <script src="products.js"></script>
+    <script>
+  featured.forEach(p => {
+  const card = document.createElement("a");
+  card.href = `product-detail.html?id=${p.id}`;
+  card.className = "product-card";
+  card.style.textDecoration = "none";  // bỏ gạch chân link
+  card.style.color = "inherit";        // giữ màu chữ như cũ
+  card.innerHTML = `
+    <img src="${p.image}" alt="${p.name}" 
+         style="width:100%; height:200px; object-fit:cover; border-radius:8px;">
+    <h3>${p.name}</h3>
+    <p style="color:#e60000; font-weight:bold;">${p.price.toLocaleString()} VNĐ</p>
+  `;
+  list.appendChild(card);
+});
+
+</script>
 </body>
 </html>
+
 
 
 
