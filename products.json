@@ -1,0 +1,34 @@
+[
+  {
+    "id": "iphone17promax",
+    "name": "iPhone 17 Pro Max",
+    "price": "39.990.000 VNĐ",
+    "image": "images/iphone17promax.jpg",
+    "description": "iPhone 17 Pro Max mới nhất với thiết kế sang trọng, màn hình 6.9 inch Super Retina XDR, chip A19 Bionic siêu mạnh mẽ, camera nâng cấp, pin lớn.",
+    "specs": [
+      "Màn hình: 6.9\" Super Retina XDR",
+      "Chip: Apple A19 Bionic",
+      "RAM: 12GB",
+      "Bộ nhớ: 256GB / 512GB / 1TB",
+      "Camera: 48MP + 12MP + 12MP",
+      "Pin: 5000mAh, sạc nhanh 45W",
+      "Hệ điều hành: iOS 19"
+    ]
+  },
+  {
+    "id": "samsung-s25ultra",
+    "name": "Samsung Galaxy S25 Ultra",
+    "price": "32.990.000 VNĐ",
+    "image": "images/s25ultra.jpg",
+    "description": "Flagship mới nhất từ Samsung với camera 200MP, màn hình 6.8 inch Dynamic AMOLED 2X, chip Snapdragon Gen 5.",
+    "specs": [
+      "Màn hình: 6.8\" AMOLED 2X",
+      "Chip: Snapdragon Gen 5",
+      "RAM: 12GB",
+      "Bộ nhớ: 256GB / 512GB / 1TB",
+      "Camera: 200MP + 50MP + 12MP",
+      "Pin: 4900mAh, sạc nhanh 65W",
+      "Hệ điều hành: Android 15"
+    ]
+  }
+]
