@@ -640,26 +640,27 @@ window.addEventListener('click',function(e){
     <p>Tài khoản</p>
   </a>
 </nav>
-    <script src="products.js"></script>
-    <script>
-  featured.forEach(p => {
-  const card = document.createElement("a");
-  card.href = `product-detail.html?id=${p.id}`;
-  card.className = "product-card";
-  card.style.textDecoration = "none";  // bỏ gạch chân link
-  card.style.color = "inherit";        // giữ màu chữ như cũ
-  card.innerHTML = `
-    <img src="${p.image}" alt="${p.name}" 
-         style="width:100%; height:200px; object-fit:cover; border-radius:8px;">
-    <h3>${p.name}</h3>
-    <p style="color:#e60000; font-weight:bold;">${p.price.toLocaleString()} VNĐ</p>
-  `;
-  list.appendChild(card);
-});
+   <script src="products.js"></script>
+<script>
+  const list = document.getElementById("featured-products"); // chỗ bạn muốn hiển thị
+  const featured = products.slice(0, 4); // ví dụ lấy 4 sản phẩm đầu tiên
 
+  featured.forEach(p => {
+    const card = document.createElement("a");
+    card.href = `product-detail.html?id=${p.id}`;
+    card.className = "product-card";
+    card.innerHTML = `
+      <img src="${p.image}" alt="${p.name}">
+      <h3>${p.name}</h3>
+      <p>${p.price.toLocaleString()} VNĐ</p>
+    `;
+    list.appendChild(card);
+  });
 </script>
+
 </body>
 </html>
+
 
 
 
