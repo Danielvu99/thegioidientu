@@ -420,6 +420,7 @@ function renderProducts(productsToRender=products){
         const discount=Math.round((1-p.price/p.originalPrice)*100);
         const card=document.createElement('div');
         card.className='product-card bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300';
+        card.href = `product-detail.html?id=${p.id}`;
         card.innerHTML=`
             <div class="relative">
                 <div class="h-48 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center overflow-hidden">
@@ -659,6 +660,7 @@ window.addEventListener('click',function(e){
 </script>
 </body>
 </html>
+
 
 
 
